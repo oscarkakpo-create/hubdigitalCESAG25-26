@@ -1,1771 +1,1625 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub Digital CESAG - Votre boîte à outils numérique</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --vert-cesag: #006747;
-            --orange-cesag: #F59E0B;
-            --blanc: #FFFFFF;
-            --gris-clair: #F3F4F6;
-            --gris-moyen: #9CA3AF;
-            --gris-fonce: #1F2937;
-            --vert-hover: #004d34;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HUB FOAD PERSONNEL – CESAG (MBA AG, GP, MSCH & AUF) 2025–2026</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --card:#f8fafc;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --brand:#00853F;
+      --brand2:#006c31;
+      --accent:#F15A29;
+      --warn:#f59e0b;
+      --danger:#dc2626;
+      --ok:#16a34a;
+      --ring:rgba(0,133,63,.20);
+      --shadow:0 10px 30px rgba(2,6,23,.08);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --auf-blue:#0055A4;
+      --auf-red:#EF4135;
+    }
+    body.dark{
+      --bg:#0f172a; --card:#1e293b; --ink:#e2e8f0; --muted:#94a3b8; --line:#334155;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Segoe UI", Inter, system-ui, -apple-system, Roboto, Ubuntu, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.5;
+      transition:background .2s,color .2s;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--gris-clair);
-            color: var(--gris-fonce);
-            line-height: 1.6;
-        }
+    header{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(90deg, var(--brand), #0a4ea1);
+      color:#fff;
+      padding:16px 18px;
+      box-shadow: 0 6px 18px rgba(2,6,23,.15);
+    }
+    header .wrap{
+      max-width: 1280px;
+      margin:0 auto;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    header h1{
+      font-size:18px;
+      letter-spacing:.2px;
+      margin-bottom:2px;
+    }
+    header .sub{
+      opacity:.95;
+      font-size:12px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .badge.auf{
+      background: linear-gradient(90deg, var(--auf-blue), var(--auf-red));
+      border: 1px solid rgba(255,255,255,.3);
+    }
 
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 600; }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; border: none; outline: none; }
+    .container{
+      max-width:1280px;
+      margin:0 auto;
+      padding:18px;
+    }
 
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: var(--blanc);
-            box-shadow: var(--shadow);
-            padding: 1rem 0;
-        }
+    /* ACTION BAR */
+    .actionbar{
+      position:sticky;
+      top:74px;
+      z-index:40;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow: var(--shadow);
+      padding:14px;
+      margin-bottom:16px;
+    }
+    .actionbar .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .actionbar .left, .actionbar .right{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .btn{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--ink);
+      border-radius:12px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:13px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition:.2s;
+      text-decoration:none;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(0,133,63,.35); box-shadow: 0 10px 20px rgba(2,6,23,.07); }
+    .btn.primary{
+      background: var(--accent);
+      color:#fff;
+      border-color: transparent;
+    }
+    .btn.primary:hover{ filter: brightness(.97); }
+    .btn.brand{
+      background: var(--brand);
+      color:#fff;
+      border-color: transparent;
+    }
+    .btn.brand:hover{ background: var(--brand2); }
+    .btn.auf{
+      background: linear-gradient(135deg, var(--auf-blue), var(--auf-red));
+      color:#fff;
+      border-color: transparent;
+    }
+    .btn.auf:hover{ filter: brightness(1.1); }
+    .btn.ghost{
+      background: #f1f5f9;
+      border-color:#dbeafe;
+    }
+    .btn.small{
+      padding:8px 10px;
+      border-radius:10px;
+      font-size:12px;
+    }
 
-        .navbar-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .copyhint{
+      font-size:12px;
+      color:var(--muted);
+      display:flex; align-items:center; gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .toast{
+      display:none;
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #bbf7d0;
+      background:#f0fdf4;
+      color:#166534;
+      font-weight:600;
+      font-size:12px;
+    }
 
-        .navbar-logo h1 {
-            font-size: 1.5rem;
-            color: var(--vert-cesag);
-        }
+    /* SECTIONS MBA */
+    .mba-section{
+      margin-bottom:20px;
+      padding:12px;
+      background: linear-gradient(90deg, rgba(0,133,63,.05), rgba(241,90,41,.05));
+      border-radius:12px;
+      border:1px solid var(--line);
+    }
+    .mba-section.auf{
+      background: linear-gradient(90deg, rgba(0,85,164,.08), rgba(239,65,53,.08));
+      border:1px solid rgba(0,85,164,.2);
+    }
+    .mba-section h2{
+      font-size:14px;
+      color:var(--brand);
+      margin-bottom:10px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .mba-section.auf h2{
+      color:var(--auf-blue);
+    }
 
-        .navbar-menu {
-            display: flex;
-            gap: 1rem;
-            list-style: none;
-            transition: all 0.3s ease-in-out; 
-        }
+    /* TABS */
+    .tabs{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      border-bottom:1px solid var(--line);
+      margin-top:6px;
+    }
+    .tab{
+      border:none;
+      background:transparent;
+      padding:12px 12px;
+      cursor:pointer;
+      font-weight:800;
+      color:var(--muted);
+      border-bottom:3px solid transparent;
+      border-radius:10px 10px 0 0;
+      transition:.2s;
+    }
+    .tab:hover{ color: var(--brand); background: rgba(0,133,63,.05); }
+    .tab.active{ color: var(--brand); border-bottom-color: var(--accent); }
+    .tab.auf:hover{ color: var(--auf-blue); background: rgba(0,85,164,.08); }
+    .tab.auf.active{ color: var(--auf-blue); border-bottom-color: var(--auf-red); }
+    .panel{ display:none; padding-top:14px; }
+    .panel.active{ display:block; }
 
-        .navbar-menu > li > a, .dropdown-toggle {
-            color: var(--gris-fonce);
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-            padding: 0.5rem 0.5rem;
-            display: block;
-            cursor: pointer;
-        }
+    /* TOOLBAR */
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:12px;
+    }
+    .toolbar .group{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    }
+    .toolbar .group{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    input[type="search"], select{
+      appearance:none;
+      border:1px solid #d1d5db;
+      background:#fff;
+      border-radius:12px;
+      padding:10px 12px;
+      min-width:240px;
+      font-size:13px;
+      outline:none;
+    }
+    input[type="search"]:focus, select:focus{
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px var(--ring);
+    }
 
-        .navbar-menu a:hover, .dropdown-toggle:hover { color: var(--vert-cesag); }
+    .card{
+      border:1px solid var(--line);
+      background: var(--card);
+      border-radius:16px;
+      padding:14px;
+      box-shadow: 0 10px 22px rgba(2,6,23,.06);
+      margin-bottom:14px;
+    }
+    .card h3{
+      font-size:14px;
+      color: var(--brand);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-bottom:10px;
+    }
+    .card.auf h3{ color: var(--auf-blue); }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      border-radius:999px;
+      padding:5px 10px;
+      background: rgba(0,133,63,.10);
+      border:1px solid rgba(0,133,63,.18);
+      color: var(--brand2);
+    }
+    .pill.auf{
+      background: linear-gradient(135deg, rgba(0,85,164,.15), rgba(239,65,53,.15));
+      border:1px solid rgba(0,85,164,.25);
+      color: var(--auf-blue);
+    }
 
-        /* Styles Dropdown */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+    /* TABLE */
+    .tablewrap{
+      overflow:auto;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:1100px;
+      font-size:12px;
+    }
+    thead th{
+      position:sticky;
+      top:0;
+      background:#0b1220;
+      color:#fff;
+      text-align:left;
+      padding:10px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    tbody td{
+      padding:9px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      white-space:nowrap;
+    }
+    tbody tr:hover td{ background:#f8fafc; }
+    .code{
+      font-family: var(--mono);
+      font-weight:900;
+      color:#0b6b3a;
+      background:#f0fdf4;
+      border:1px solid #bbf7d0;
+      padding:4px 8px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    .code.auf{
+      color:var(--auf-blue);
+      background:rgba(0,85,164,.1);
+      border:1px solid rgba(0,85,164,.2);
+    }
+    .ueRow td{
+      background: #eff6ff !important;
+      color:#1e40af;
+      font-weight:900;
+      border-bottom:1px solid #bfdbfe;
+    }
+    .note{
+      min-width:240px;
+      white-space:normal;
+      color:var(--muted);
+    }
 
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: var(--blanc);
-            box-shadow: var(--shadow-lg);
-            min-width: 180px;
-            z-index: 1100;
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            list-style: none;
-        }
+    .status{
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:11px;
+      border:1px solid;
+      white-space:nowrap;
+    }
+    .s-red{ background:#fef2f2; border-color:#fecaca; color:#991b1b; }
+    .s-yellow{ background:#fffbeb; border-color:#fde68a; color:#92400e; }
+    .s-green{ background:#f0fdf4; border-color:#bbf7d0; color:#166534; }
 
-        .dropdown:hover .dropdown-menu {
-            display: block; 
-        }
-        
-        .dropdown-menu.active {
-            display: block; 
-        }
+    .mini{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .warnTag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-weight:900;
+      font-size:11px;
+      padding:5px 8px;
+      border-radius:999px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      margin-left:8px;
+    }
 
-        .dropdown-menu li a {
-            padding: 0.75rem 1rem;
-            display: block;
-            font-weight: 400;
-            white-space: nowrap;
-        }
+    .controls{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .controls select{
+      min-width: 160px;
+      padding:8px 10px;
+      border-radius:10px;
+      font-weight:800;
+    }
+    .controls input[type="text"]{
+      min-width: 220px;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid #d1d5db;
+      outline:none;
+      font-size:12px;
+    }
+    .controls input[type="text"]:focus{
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px var(--ring);
+    }
 
-        .dropdown-menu li a:hover {
-            background-color: var(--gris-clair);
-            color: var(--vert-cesag);
-        }
+    footer{
+      max-width:1280px;
+      margin: 18px auto 26px;
+      padding: 0 18px;
+      color: var(--muted);
+      font-size:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .mini{ font-size:11px; color:var(--muted); }
+    .warnTag{ display:inline-flex; align-items:center; gap:6px; font-weight:900; font-size:11px; padding:5px 8px; border-radius:999px; background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; margin-left:8px; }
 
-        .menu-toggle {
-            display: none; 
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--vert-cesag);
-        }
+    .controls{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .controls select{ min-width: 160px; padding:8px 10px; border-radius:10px; font-weight:800; }
+    .controls input[type="text"]{ min-width: 220px; padding:8px 10px; border-radius:10px; border:1px solid #d1d5db; outline:none; font-size:12px; }
+    .controls input[type="text"]:focus{ border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring); }
 
-        /* --- MEDIA QUERY POUR LE RESPONSIVE (SMARTPHONE/TABLETTE) --- */
-        @media (max-width: 992px) { 
-            .navbar-menu {
-                display: none; 
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 68px;
-                left: 0;
-                background-color: var(--blanc);
-                box-shadow: var(--shadow-lg);
-                padding: 1rem 2rem;
-                z-index: 999;
-                gap: 0.5rem;
-                text-align: left;
-            }
+    footer{ max-width:1280px; margin: 18px auto 80px; padding: 0 18px; color: var(--muted); font-size:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; }
+    footer .right{ font-weight:900; }
 
-            .navbar-menu.active {
-                display: flex;
-            }
+    /* DARK MODE OVERRIDES */
+    body.dark .actionbar{ background:rgba(30,41,59,.95); }
+    body.dark .tablewrap{ background:#1e293b; }
+    body.dark thead th{ background:#0b1220; }
+    body.dark tbody tr:hover td{ background:#1e293b; }
+    body.dark .code{ background:#052e16; border-color:#166534; }
+    body.dark .warnTag{ background:#431407; border-color:#9a3412; color:#fdba74; }
+    body.dark input, body.dark select{ background:#1e293b; color:#e2e8f0; border-color:#334155; }
 
-            .menu-toggle {
-                display: block;
-            }
-            
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                padding: 0;
-                margin-left: 1rem;
-                background: none;
-                display: block;
-                border-radius: 0;
-            }
-            .dropdown-menu li a {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-            }
-            .dropdown-toggle {
-                border-bottom: 1px solid var(--gris-clair);
-            }
-        }
-        /* --- FIN MEDIA QUERY --- */
-
-        /* Styles des sections */
-        .hero { background: linear-gradient(135deg, var(--vert-cesag) 0%, var(--vert-hover) 100%); color: var(--blanc); padding: 4rem 2rem; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
-        .hero-badge { display: inline-block; background: var(--orange-cesag); padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; margin-bottom: 1rem; }
-        .section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-header h2 { font-size: 2.5rem; color: var(--vert-cesag); margin-bottom: 0.5rem; }
-        .section-header p { font-size: 1.1rem; color: var(--gris-moyen); }
-        
-        /* Nouvelle section VISION / ABOUT (Vision du Hub) */
-        .section-about {
-            background: var(--blanc);
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 4rem;
-        }
-
-        .about-intro {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .about-intro h3 {
-            color: var(--orange-cesag);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-intro p {
-            font-size: 1.15rem;
-            color: var(--gris-fonce);
-            margin: 0 auto 1.5rem;
-            max-width: 900px;
-        }
-
-        /* Styles du Tableau de Vision */
-        .vision-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-
-        .vision-table th, .vision-table td {
-            padding: 1rem;
-            text-align: left;
-        }
-
-        .vision-table th {
-            background-color: var(--vert-cesag);
-            color: var(--blanc);
-            font-weight: 700;
-            border-radius: 6px 6px 0 0; 
-        }
-
-        .vision-table tr:nth-child(odd) {
-            background-color: var(--gris-clair);
-        }
-        
-        .vision-table tr:nth-child(even) {
-            background-color: #DBEAFE15;
-        }
-
-        .vision-table tr:not(:last-child) td {
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .vision-table td strong {
-            color: var(--vert-hover);
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-        
-        .vision-table td a {
-            color: var(--orange-cesag);
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .vision-table td a:hover {
-            text-decoration: underline;
-            color: var(--vert-cesag);
-        }
-        
-        /* icônes spécifiques du tableau de vision */
-        .vision-table .fa-shield-alt { color: #34D399; }
-        .vision-table .fa-bolt { color: #F59E0B; }
-        .vision-table .fa-robot { color: #6366F1; }
-
-        @media (max-width: 600px) {
-            .vision-table, .vision-table tbody, .vision-table tr, .vision-table td {
-                display: block;
-                width: 100%;
-            }
-            .vision-table thead { display: none; }
-            .vision-table tr { 
-                margin-bottom: 1rem; 
-                border: 1px solid var(--gris-moyen);
-                border-radius: 8px;
-            }
-            .vision-table td { 
-                text-align: right;
-                padding-left: 50%;
-                position: relative;
-            }
-            .vision-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                width: calc(50% - 20px);
-                padding-right: 10px;
-                white-space: nowrap;
-                font-weight: 700;
-                color: var(--vert-cesag);
-            }
-        }
-        /* Fin Styles Vision */
-
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .card { background: var(--blanc); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-        .card-icon { font-size: 3rem; color: var(--vert-cesag); margin-bottom: 1rem; }
-        .card-title { font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .card-description { font-size: 0.95rem; color: var(--gris-fonce); margin-bottom: 1.5rem; min-height: 45px; } 
-
-        .support-card .fa-microsoft { color: #0078D4; } 
-        .support-card .fa-graduation-cap { color: #8C1C30; } 
-        .card-tag.gratuit { background: #D1FAE5; color: #065F46; }
-        .card-tag.payant { background: #FEE2E2; color: #991B1B; }
-        .card-tag.etudiant { background: #DBEAFE; color: #1E40AF; }
-        .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .support-card { background: var(--blanc); padding: 2rem; border-radius: 12px; box-shadow: var(--shadow); border-left: 4px solid var(--vert-cesag); }
-        .conseil-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; text-align: center; }
-        .conseil-item { background: var(--blanc); padding: 1.5rem; border-radius: 12px; box-shadow: var(--shadow); border-bottom: 4px solid var(--orange-cesag); }
-        .password-checker-box { background: #f0fdfa; padding: 1.5rem; border-radius: 8px; border: 1px solid #34d399; margin-top: 1.5rem; }
-        #passwordStrength { font-weight: 700; margin-top: 10px; padding: 8px; border-radius: 4px; }
-        .strength-0 { background-color: #fca5a5; color: #991b1b; } 
-        .strength-1 { background-color: #fcd34d; color: #92400e; } 
-        .strength-2 { background-color: #a7f3d0; color: #065f46; } 
-        .strength-3 { background-color: #059669; color: #fff; } 
-        .ia-alert { background: #FEF3C7; border: 1px solid #FCD34D; color: #92400E; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; text-align: left; }
-
-        /* Styles des gadgets (emails) */
-        .email-templates { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .email-card { background: var(--blanc); padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow); cursor: pointer; transition: background-color 0.3s; border-left: 4px solid var(--vert-cesag); }
-        .email-card:hover { background-color: #e5e7eb; }
-        .email-card i { font-size: 1.5rem; color: var(--orange-cesag); margin-bottom: 0.5rem; }
-        .email-card h3 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .email-card p { font-size: 0.9rem; color: var(--gris-moyen); }
-
-        /* Styles Modal et CV */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4); }
-        .modal-content { background-color: #fefefe; margin: 5% auto; padding: 30px; border-radius: 12px; max-width: 800px; position: relative; box-shadow: var(--shadow-lg); }
-        .modal-close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-        .modal-close:hover, .modal-close:focus { color: #000; }
-        
-        #cvForm input[type="text"], #cvForm textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        #cvForm label, #converterForm label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 5px;
-            color: var(--vert-cesag);
-        }
-        .form-section {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px dashed var(--orange-cesag);
-            border-radius: 8px;
-        }
-        
-        /* Styles Utilitaires */
-        .btn-primary { background-color: var(--vert-cesag); color: var(--blanc); padding: 0.75rem 1.5rem; border-radius: 8px; display: inline-block; font-weight: 500; transition: background-color 0.3s; }
-        .btn-primary:hover { background-color: var(--vert-hover); }
-        .btn-secondary { background-color: var(--orange-cesag); color: var(--blanc); padding: 0.75rem 1.5rem; border-radius: 8px; display: inline-block; font-weight: 500; transition: background-color 0.3s; }
-        .btn-secondary:hover { background-color: #E68A00; }
-        .card-tag { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
-        
-        /* Footer */
-        .footer { background: var(--gris-fonce); color: var(--gris-clair); padding: 3rem 2rem 1rem; text-align: center; }
-        .footer-bottom { border-top: 1px solid #374151; padding-top: 1rem; margin-top: 2rem; font-size: 0.85rem; color: var(--gris-moyen); }
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; background-color: var(--orange-cesag); color: var(--blanc); width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; font-size: 1.2rem; cursor: pointer; opacity: 0; transition: opacity 0.3s; z-index: 998; }
-        .back-to-top.show { opacity: 1; }
-
-        /* --- STYLES FAQ (FINALS) --- */
-        .faq-item {
-            border: 1px solid #E5E7EB;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background: var(--blanc);
-            transition: box-shadow 0.3s;
-        }
-
-        .faq-item:hover {
-            box-shadow: var(--shadow);
-        }
-
-        .faq-question {
-            padding: 18px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: var(--vert-cesag);
-            font-size: 1rem;
-        }
-
-        .faq-icon {
-            transition: transform 0.3s ease;
-            color: var(--orange-cesag);
-            font-size: 1.1em;
-        }
-
-        .faq-icon.active {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            padding: 0 20px;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-            background-color: #F9FAFB;
-            border-top: 1px solid #F3F4F6;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-
-        .faq-answer.active {
-            max-height: 500px; 
-            padding: 15px 20px 20px 20px;
-            transition: max-height 0.6s ease-in, padding 0.6s ease-in;
-        }
-
-        .faq-answer p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-        .faq-answer p:last-child {
-            margin-bottom: 0;
-        }
-        .faq-answer ol, .faq-answer ul {
-            margin: 10px 0;
-            padding-left: 20px;
-            font-size: 0.95rem;
-        }
-    </style>
+    /* PAGE NAV BAR */
+    #page-nav{
+      position:fixed; bottom:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:center; gap:12px;
+      padding:12px 20px;
+      background:rgba(15,23,42,.92);
+      backdrop-filter:blur(10px);
+      border-top:1px solid rgba(255,255,255,.1);
+    }
+    #page-nav button, #page-nav a{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 18px; border-radius:999px; border:none; cursor:pointer;
+      font-size:13px; font-weight:700; text-decoration:none;
+      transition:.15s;
+    }
+    #page-nav .nav-prev, #page-nav .nav-next{
+      background:rgba(255,255,255,.1); color:#e2e8f0;
+    }
+    #page-nav .nav-prev:hover, #page-nav .nav-next:hover{
+      background:rgba(255,255,255,.2);
+    }
+    #page-nav .nav-home{
+      background:linear-gradient(90deg,#00853F,#0a4ea1); color:#fff;
+    }
+    #page-nav .nav-home:hover{ opacity:.88; }
+    #page-nav .nav-dark{
+      background:rgba(255,255,255,.1); color:#e2e8f0; font-size:16px; padding:8px 12px;
+    }
+    #page-nav .nav-dark:hover{ background:rgba(255,255,255,.2); }
+  </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <h1><i class="fas fa-graduation-cap"></i> Hub Digital CESAG</h1>
-            </div>
-            
-            <ul class="navbar-menu" id="navbarMenu">
-                <li><a href="#about" onclick="closeMenu()">À Propos</a></li> 
-                <li><a href="#essentiels" onclick="closeMenu()">Essentiels</a></li>
-                <li><a href="#support" onclick="closeMenu()">Support</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" onclick="toggleDropdown('resources'); return false;">
-                        Ressources <i class="fas fa-chevron-down" style="font-size: 0.7em;"></i>
-                    </a>
-                    <ul class="dropdown-menu" id="resources-menu">
-                        <li><a href="#productivite">Productivité</a></li>
-                        <li><a href="#organisation">Organisation</a></li>
-                        <li><a href="#apprentissage">Apprentissage Externe</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" onclick="toggleDropdown('tools'); return false;">
-                        Outils Numériques <i class="fas fa-chevron-down" style="font-size: 0.7em;"></i>
-                    </a>
-                    <ul class="dropdown-menu" id="tools-menu">
-                        <li><a href="#ia">Intelligence Artificielle</a></li>
-                        <li><a href="#securite">Cybersécurité</a></li>
-                        <li><a href="#gadgets">Boîte à Gadgets</a></li>
-                    </ul>
-                </li>
-                <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
-                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
-            </ul>
-            
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
+<header>
+  <div class="wrap">
+    <div>
+      <h1>📌 HUB FOAD PERSONNEL – CESAG (MBA AG, GP, MSCH & AUF)</h1>
+      <div class="sub">Pilotage interne • Année académique 2025–2026 • Version AUF intégrée</div>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <div class="badge">✅ Usage interne • Données sauvegardées (localStorage)</div>
+      <div class="badge auf">🌍 MBA Suivis Oscar KAKPO</div>
+      <button id="dark-toggle" onclick="toggleDark()" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:700;" title="Basculer thème sombre">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ACTION BAR (PRIORITÉ) -->
+  <div class="actionbar">
+    <!-- SECTION CESAG STANDARD -->
+<div class="container">
+  <div class="actionbar">
+    <div class="mba-section">
+      <h2>📊 Suivi CESAG Standard (GP, AG, MSCH)</h2>
+      <div class="row">
+        <div class="left">
+          <a class="btn primary" href="https://cesagedu-my.sharepoint.com/:x:/r/personal/dfoad_cesag_edu_sn/_layouts/15/Doc.aspx?sourcedoc=%7B568767B3-33DA-4A16-B2AE-F80BDC21010C%7D&file=MBA%20AG-GP%2025-26.xlsx&action=default&mobileredirect=true" target="_blank" rel="noopener">
+            📊 SUIVI MBA AG-GP 25-26
+          </a>
+          <a class="btn primary" href="https://cesagedu-my.sharepoint.com/:x:/r/personal/dfoad_cesag_edu_sn/_layouts/15/Doc.aspx?sourcedoc=%7BF564192F-F64E-418A-931C-938CD228D62F%7D&file=MBA%20MSCH.xlsx&action=default&mobileredirect=true" target="_blank" rel="noopener">
+            📊 SUIVI MBA MSCH 25-26
+          </a>
+          <button class="btn brand" id="copyAG">📧 Copier mails MBA AG</button>
+          <button class="btn brand" id="copyGP">📧 Copier mails MBA GP</button>
+          <button class="btn brand" id="copyMSCH">📧 Copier mails MBA MSCH</button>
         </div>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-container">
-            <span class="hero-badge">🚀 Rentrée 2025</span>
-            <h1>Hub Digital CESAG</h1>
-            <p>Votre boîte à outils numérique complète pour réussir au CESAG</p>
+        <div class="right">
+          <button class="btn ghost" id="exportJSON">💾 Exporter le suivi (JSON)</button>
+          <button class="btn ghost" id="resetTracking">🧹 Réinitialiser le suivi local</button>
         </div>
-    </section>
-
-    <section class="section" id="about" style="background: var(--gris-clair);">
-        <div class="section-header">
-            <h2><i class="fas fa-bullseye"></i> Bienvenue & À Propos du Hub</h2>
-        </div>
-        <div class="section-about">
-            <div class="about-intro">
-                <h3>Transformer l'étudiant en un leader digital autonome</h3>
-                <p>
-                    Le Hub Digital du CESAG est la plateforme centrale conçue pour propulser votre parcours académique et professionnel. Notre mission n'est pas seulement de fournir des outils, mais de transformer l'étudiant en un **acteur numérique autonome**, prêt pour le marché du travail africain et mondial.
-                </p>
-            </div>
-            
-            <table class="vision-table">
-                <thead>
-                    <tr>
-                        <th><i class="fas fa-check-double"></i> Piliers de la Réussite</th>
-                        <th>Objectif Clé</th>
-                        <th>Ressources Associées</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="Piliers de la Réussite">
-                            <i class="fas fa-shield-alt"></i> **Sécurité & Conformité**
-                        </td>
-                        <td data-label="Objectif Clé">Garantir un environnement d'apprentissage sécurisé et institutionnel (accès, identité, données).</td>
-                        <td data-label="Ressources Associées">
-                            <a href="#essentiels">Outils Essentiels CESAG</a>, 
-                            <a href="#support">Support Technique</a>, 
-                            <a href="#securite">Cybersécurité</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Piliers de la Réussite">
-                            <i class="fas fa-bolt"></i> **Efficacité & Productivité**
-                        </td>
-                        <td data-label="Objectif Clé">Augmenter la qualité de votre travail académique tout en réduisant le temps passé sur les tâches répétitives.</td>
-                        <td data-label="Ressources Associées">
-                            <a href="#productivite">Outils Productivité</a>, 
-                            <a href="#organisation">Conseils Orga</a>, 
-                            <a href="#gadgets">Boîte à Gadgets</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-label="Piliers de la Réussite">
-                            <i class="fas fa-robot"></i> **Compétences Futures (IA)**
-                        </td>
-                        <td data-label="Objectif Clé">Intégrer éthiquement les technologies émergentes pour vous rendre plus compétitif sur le marché.</td>
-                        <td data-label="Ressources Associées">
-                            <a href="#ia">Intelligence Artificielle</a>, 
-                            <a href="#apprentissage">Apprentissage Externe</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section class="section" id="essentiels">
-        <div class="section-header">
-            <h2><i class="fas fa-key"></i> Vos Essentiels CESAG</h2>
-            <p>Les outils institutionnels à maîtriser absolument</p>
-        </div>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-microsoft"></i></div>
-                <h3 class="card-title">Office 365</h3>
-                <span class="card-tag gratuit">Gratuit CESAG</span>
-                <p class="card-description">Suite logicielle (Word, Excel, PowerPoint) pour la productivité académique. Teams et OneDrive (1To) inclus.</p>
-                <a href="https://www.office.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3 class="card-title">Moodle FOAD</h3>
-                <span class="card-tag gratuit">Plateforme de Cours</span>
-                <p class="card-description">Votre espace d'apprentissage : documents de cours, soumission de travaux, examens et évaluation des enseignements (obligatoire).</p>
-                <a href="https://formations.cesagonline.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-globe"></i></div>
-                <h3 class="card-title">FutureLearn</h3>
-                <span class="card-tag etudiant">Obligatoire CESAG</span>
-                <p class="card-description">Plateforme de MOOCs. **Certification OBLIGATOIRE** pour la validation de certains modules clés.</p>
-                <a href="https://www.futurelearn.com" target="_blank" class="btn btn-secondary">Accéder →</a>
-            </div>
-            
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-book"></i></div>
-                <h3 class="card-title">Bibliothèque CESAG</h3>
-                <span class="card-tag gratuit">Gratuit CESAG</span>
-                <p class="card-description">Accès aux ressources académiques, bases de données de recherche, thèses, mémoires, et catalogues.</p>
-                <a href="https://bibliotheque.cesag.sn/" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="support" style="background: var(--blanc);">
-        <div class="section-header">
-            <h2><i class="fas fa-life-ring"></i> Besoin d'aide ?</h2>
-            <p>Problèmes avec vos comptes ? Solutions rapides</p>
-        </div>
-        <div class="support-grid">
-            
-            <div class="support-card">
-                <h3><i class="fab fa-microsoft fa-2x"></i> Mot de passe Office 365 oublié</h3>
-                <p>Si vous êtes **bloqué(e)**, remplissez le modèle d'email officiel et envoyez-le au Support :</p>
-                <div class="support-info">
-                    <p><i class="fas fa-info-circle"></i> Réponse sous 24-48h pour un nouveau mot de passe temporaire.</p>
-                </div>
-                <a href="#gadgets" class="btn btn-secondary">Modèle d'Email de Réinitialisation →</a>
-            </div>
-
-            <div class="support-card">
-                <h3><i class="fas fa-graduation-cap fa-2x"></i> Mot de passe Moodle oublié</h3>
-                <p>Vous pouvez le réinitialiser vous-même **instantanément** :</p>
-                <ol style="margin: 1rem 0; padding-left: 1.5rem;">
-                    <li>Allez sur formations.cesagonline.com</li>
-                    <li>Cliquez "**Mot de passe perdu**"</li>
-                    <li>Entrez votre email CESAG</li>
-                    <li>Suivez le lien reçu</li>
-                </ol>
-                <a href="https://formations.cesagonline.com/login/forgot_password.php" target="_blank" class="btn btn-secondary">Formulaire de Réinitialisation Moodle →</a>
-            </div>
-
-            <div class="support-card">
-                <h3><i class="fas fa-headset"></i> Support Technique</h3>
-                <p>Toujours un problème ?</p>
-                <div class="support-info">
-                    <p><i class="fas fa-envelope"></i> oscarkakpo@cesag.edu.sn</p>
-                    <p><i class="fas fa-clock"></i> **Heures :** 11h-12h et 16h30-18h</p>
-                    <p><i class="fas fa-calendar"></i> Lundi à Vendredi</p>
-                </div>
-                <a href="mailto:oscarkakpo@cesag.edu.sn" class="btn btn-primary">Envoyer email →</a>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section" id="securite">
-        <div class="section-header">
-            <h2><i class="fas fa-shield-alt"></i> Cybersécurité & Mots de Passe</h2>
-            <p>Protégez-vous en ligne - Checklist et Générateur</p>
-        </div>
-        <div class="checklist">
-            <h3 style="margin-bottom: 1.5rem;">Les 7 Commandements de la Cybersécurité</h3>
-            <div class="checklist-item">
-                <input type="checkbox" id="check1">
-                <label for="check1">J'ai des mots de passe différents pour chaque compte important</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check2">
-                <label for="check2">Mes mots de passe font au moins 12 caractères</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check3">
-                <label for="check3">J'ai activé la double authentification (2FA) sur mes comptes</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check4">
-                <label for="check4">Je ne fais jamais d'opérations bancaires sur WiFi public</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check5">
-                <label for="check5">Je vérifie l'expéditeur avant d'ouvrir une pièce jointe</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check6">
-                <label for="check6">Je fais des sauvegardes régulières de mes documents importants</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="check7">
-                <label for="check7">Je mets à jour mes appareils et applications régulièrement</label>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem;">🔑 Testez la Sûreté de votre Mot de Passe</h3>
-            <div class="password-checker-box">
-                <p style="font-weight: 500;">Entrez le mot de passe que vous souhaitez tester (il n'est pas sauvegardé) :</p>
-                <input type="password" id="passwordInput" oninput="checkPasswordStrength(this.value)" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px;">
-                <div id="passwordStrength">Veuillez entrer un mot de passe.</div>
-            </div>
-            
-            <h3 style="margin: 2rem 0 1rem;">🔐 Générateur de Mot de Passe Sécurisé</h3>
-            <div class="password-generator-box">
-                <div class="generator-options">
-                    <label for="length">Longueur du Mot de Passe : <span id="lengthValue">12</span></label>
-                    <input type="range" id="length" min="8" max="24" value="12" oninput="document.getElementById('lengthValue').textContent=this.value; generatePassword()">
-                    
-                    <label style="display: flex; gap: 10px;"><input type="checkbox" id="uppercase" checked onchange="generatePassword()"> Majuscules (A-Z)</label>
-                    <label style="display: flex; gap: 10px;"><input type="checkbox" id="lowercase" checked onchange="generatePassword()"> Minuscules (a-z)</label>
-                    <label style="display: flex; gap: 10px;"><input type="checkbox" id="numbers" checked onchange="generatePassword()"> Chiffres (0-9)</label>
-                    <label style="display: flex; gap: 10px;"><input type="checkbox" id="symbols" checked onchange="generatePassword()"> Symboles (!@#$...)</label>
-                    
-                    <button class="btn btn-secondary" style="margin-top: 1rem; width: 100%;" onclick="generatePassword()">
-                        <i class="fas fa-redo-alt"></i> Générer un nouveau
-                    </button>
-                </div>
-                
-                <div class="generator-output" id="passwordOutput" onclick="copyPassword()">Cliquez pour générer...</div>
-                <p style="text-align: center; font-size: 0.85rem; color: var(--gris-moyen);">**Cliquez sur le mot de passe pour le copier.**</p>
-            </div>
-            
-            <h3 style="margin: 2rem 0 1rem;">💡 Méthode Phrase de Passe</h3>
-            <p>La méthode la plus simple et la plus sûre est la **"Phrase de Passe"** : une longue phrase facile à retenir, plus sûre qu'un mot court complexe.</p>
-            <div class="password-tip">
-                <p>1. **Choisissez une phrase longue** : Une citation d'un film, le titre d'une chanson, ou une phrase personnelle que vous seul connaissez.</p>
-                <p>2. **Mélangez les caractères** : Remplacez quelques lettres par des chiffres ou symboles similaires, et ajoutez des majuscules.</p>
-                <p>3. **Exemple réussi** : `Le_CESAG-Est-Plus-Qu-Une-BusinessSchool-Pour-Moi-2025!`</p>
-                <p>**Votre mot de passe doit faire au moins 12 caractères et mélanger Majuscules, Minuscules, Chiffres et Symboles.**</p>
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem;">Gestionnaires de Mots de Passe Recommandés</h3>
-            <div style="display: grid; gap: 1rem;">
-                <a href="https://bitwarden.com" target="_blank" class="btn btn-primary">Bitwarden (Open-source)</a>
-                <a href="https://lastpass.com" target="_blank" class="btn btn-primary">LastPass</a>
-                <a href="https://dashlane.com" target="_blank" class="btn btn-primary">Dashlane</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="organisation" style="background: var(--gris-clair);">
-        <div class="section-header">
-            <h2><i class="fas fa-tasks"></i> Conseils d'Organisation</h2>
-            <p>Devenez un pro de la gestion du temps et des priorités</p>
-        </div>
-        <div class="conseil-grid">
-            <div class="conseil-item">
-                <i class="fas fa-stopwatch"></i>
-                <h3>Technique Pomodoro</h3>
-                <p>Travaillez 25 min, faites une pause de 5 min. Idéal pour les tâches longues.</p>
-            </div>
-            <div class="conseil-item">
-                <i class="fas fa-clipboard-list"></i>
-                <h3>Règle 1-3-5</h3>
-                <p>Chaque jour, choisissez 1 Grosse tâche, 3 Moyennes, et 5 Petites à accomplir.</p>
-            </div>
-            <div class="conseil-item">
-                <i class="fas fa-list-check"></i>
-                <h3>Gérez le Backlog</h3>
-                <p>Utilisez Notion ou OneNote pour lister TOUT ce que vous devez faire (Backlog) puis priorisez.</p>
-            </div>
-            <div class="conseil-item">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Nettoyage Numérique</h3>
-                <p>Désabonnez-vous des emails inutiles. Organisez votre OneDrive régulièrement.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="productivite">
-        <div class="section-header">
-            <h2><i class="fas fa-bolt"></i> Outils de Productivité</h2>
-            <p>Gagnez du temps et travaillez mieux</p>
-        </div>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-sticky-note"></i></div>
-                <h3 class="card-title">Notion</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Tout-en-un : notes, projets, tâches, bases de données.</p>
-                <a href="https://notion.so" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
-                <h3 class="card-title">Miro</h3>
-                <span class="card-tag gratuit">Freemium</span>
-                <p class="card-description">Tableau blanc collaboratif pour diagrammes, brainstorming et gestion de projet.</p>
-                <a href="https://miro.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-microsoft"></i></div>
-                <h3 class="card-title">OneNote</h3>
-                <span class="card-tag gratuit">Intégré Office</span>
-                <p class="card-description">Prise de notes Microsoft (écriture manuscrite) synchronisée avec Teams.</p>
-                <a href="https://www.onenote.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-book-reader"></i></div>
-                <h3 class="card-title">Zotero</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Gestion bibliographique et citations automatiques pour mémoires et travaux de recherche.</p>
-                <a href="https://zotero.org" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-tree"></i></div>
-                <h3 class="card-title">Forest</h3>
-                <span class="card-tag payant">Freemium</span>
-                <p class="card-description">Application de concentration gamifiée (Méthode Pomodoro) pour rester focus.</p>
-                <a href="https://forestapp.cc" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-palette"></i></div>
-                <h3 class="card-title">Canva</h3>
-                <span class="card-tag etudiant">Gratuit étudiants</span>
-                <p class="card-description">Design graphique facile (présentations, CV, infographies) pour des rendus professionnels.</p>
-                <a href="https://canva.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-linkedin"></i></div>
-                <h3 class="card-title">LinkedIn (Pro)</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Réseau professionnel indispensable pour le stage, l'emploi, et le développement de carrière.</p>
-                <a href="https://linkedin.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-language"></i></div>
-                <h3 class="card-title">Duolingo</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Apprentissage ludique de langues étrangères pour renforcer votre profil international.</p>
-                <a href="https://duolingo.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="apprentissage" style="background: var(--blanc);">
-        <div class="section-header">
-            <h2><i class="fas fa-book-open"></i> Plateformes d'Apprentissage Externe</h2>
-            <p>Apprenez au-delà des cours</p>
-        </div>
-        <div class="cards-grid">
-            
-            <div class="card quiz-card">
-                <div class="card-icon"><i class="fas fa-puzzle-piece" style="color: #1E40AF;"></i></div>
-                <h3 class="card-title" style="color: #1E40AF;">Quiz Digital CESAG</h3>
-                <span class="card-tag etudiant">Auto-Évaluation</span>
-                <p class="card-description" style="color: #1E40AF;">Testez vos connaissances sur l'IA, la cybersécurité et les outils essentiels du Hub.</p>
-                <a href="#" class="btn btn-primary" onclick="event.preventDefault(); openQuizModal();">Lancer le Quiz →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-linkedin"></i></div>
-                <h3 class="card-title">LinkedIn Learning</h3>
-                <span class="card-tag payant">Payant</span>
-                <p class="card-description">Cours business, tech, créativité. Souvent offert par les entreprises.</p>
-                <a href="https://learning.linkedin.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-university"></i></div>
-                <h3 class="card-title">Coursera</h3>
-                <span class="card-tag etudiant">Audit gratuit</span>
-                <p class="card-description">Cours des meilleures universités et entreprises (Google, IBM)</p>
-                <a href="https://coursera.org" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h3 class="card-title">Udemy</h3>
-                <span class="card-tag payant">€€</span>
-                <p class="card-description">Formations pratiques abordables sur des compétences spécifiques.</p>
-                <a href="https://udemy.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="gadgets" style="background: var(--gris-clair);">
-        <div class="section-header">
-            <h2><i class="fas fa-wrench"></i> Boîte à Gadgets (Modèles d'Emails & Outils)</h2>
-            <p>Templates professionnels et outils rapides - Cliquez pour voir</p>
-        </div>
-        <div class="email-templates">
-            
-            <div class="email-card" onclick="openCVModal()">
-                <i class="fas fa-file-pdf"></i>
-                <h3>Générateur de CV (Basique)</h3>
-                <p>Créez un CV simple à exporter en PDF</p>
-            </div>
-            
-            <div class="email-card" onclick="openConverterModal()">
-                <i class="fas fa-exchange-alt"></i>
-                <h3>Calculateur de Taux (XOF)</h3>
-                <p>Convertisseur rapide USD/EUR vers FCFA</p>
-            </div>
-            
-            <div class="email-card" onclick="openModal('email6')">
-                <i class="fas fa-key"></i>
-                <h3>Réinitialisation Mdp Office 365</h3>
-                <p>Demande simple pour le support</p>
-            </div>
-            <div class="email-card" onclick="openModal('email1')">
-                <i class="fas fa-handshake"></i>
-                <h3>Demander un Rendez-vous</h3>
-                <p>Rencontrer un prof, un pro</p>
-            </div>
-
-            <div class="email-card" onclick="openModal('email7')">
-                <i class="fas fa-clock"></i>
-                <h3>Demander une Prolongation (Deadline)</h3>
-                <p>Demande professionnelle de délai</p>
-            </div>
-            
-            <div class="email-card" onclick="openModal('email8')">
-                <i class="fas fa-comment-dots"></i>
-                <h3>Follow-up (Pro/Réseau)</h3>
-                <p>Remerciements après contact informel</p>
-            </div>
-
-            <div class="email-card" onclick="openModal('email2')">
-                <i class="fas fa-certificate"></i>
-                <h3>Demander une Recommandation</h3>
-                <p>Lettre de recommandation</p>
-            </div>
-
-            <div class="email-card" onclick="openModal('email3')">
-                <i class="fas fa-briefcase"></i>
-                <h3>Candidature Stage</h3>
-                <p>Postuler spontanément</p>
-            </div>
-
-            <div class="email-card" onclick="openModal('email4')">
-                <i class="fas fa-redo"></i>
-                <h3>Relancer un Email</h3>
-                <p>Rappel sans réponse</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="ia">
-        <div class="section-header">
-            <h2><i class="fas fa-robot"></i> Intelligence Artificielle</h2>
-            <p>Boostez votre productivité avec l'IA</p>
-        </div>
-
-        <div class="ia-alert">
-            <h3><i class="fas fa-exclamation-triangle"></i> Consignes d'utilisation de l'IA (CESAG)</h3>
-            <p>L'IA est un outil puissant, pas un substitut à votre travail :</p>
-            <ul>
-                <li>**Interdit** de soumettre un travail généré intégralement par IA.</li>
-                <li>**Autorisé** pour la recherche, la clarification de concepts, la correction de votre propre écriture et l'organisation d'idées.</li>
-                <li>**L'IA est un PROF, pas un TRICHEUR** : Citez toujours les sources et assurez-vous de la véracité de l'information.</li>
-            </ul>
-        </div>
-
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-comments"></i></div>
-                <h3 class="card-title">ChatGPT</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Assistant IA conversationnel généraliste</p>
-                <a href="https://chat.openai.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-google"></i></div>
-                <h3 class="card-title">Gemini</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">IA de Google intégrée, multimodal, accès web</p>
-                <a href="https://gemini.google.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-brain"></i></div>
-                <h3 class="card-title">Claude</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Idéal pour l'analyse de documents longs (jusqu'à 150K mots)</p>
-                <a href="https://claude.ai" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-search"></i></div>
-                <h3 class="card-title">Perplexity AI</h3>
-                <span class="card-tag gratuit">Gratuit</span>
-                <p class="card-description">Moteur de recherche IA, citation de sources</p>
-                <a href="https://www.perplexity.ai" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-file-alt"></i></div>
-                <h3 class="card-title">Notion AI</h3>
-                <span class="card-tag etudiant">Freemium</span>
-                <p class="card-description">IA dans vos notes et documents Notion</p>
-                <a href="https://notion.so" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-            
-            <div class="card">
-                <div class="card-icon"><i class="fab fa-microsoft"></i></div>
-                <h3 class="card-title">Microsoft Copilot</h3>
-                <span class="card-tag gratuit">Intégré Windows/Office</span>
-                <p class="card-description">Assistant IA intégré à l'écosystème Microsoft</p>
-                <a href="https://copilot.microsoft.com" target="_blank" class="btn btn-primary">Accéder →</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="faq" style="background: var(--blanc);">
-        <div class="section-header">
-            <h2><i class="fas fa-question-circle"></i> Questions Fréquentes (FAQ)</h2>
-            <p>Cliquez sur une question pour afficher la réponse (Style modéré/professionnel)</p>
-        </div>
-        
-        <div class="faq-list">
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Pourquoi l'évaluation des enseignements sur Moodle est-elle OBLIGATOIRE ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>🎯 C'est une condition **SINE QUA NON** pour la validation de votre semestre. **Pas d'évaluation = Pas d'accès aux examens !**</p>
-                    <p>💬  lL'évaluation n'est pas **ANONYME** : Les professeurs ne reçoivent les résultats qu'une fois les notes finales publiées. Votre opinion est confidentielle.</p>
-                    <p>📈 C'est **UTILE** : Votre feedback permet au CESAG d'améliorer la qualité des cours et l'organisation des enseignements pour les sessions futures.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Puis-je utiliser l'IA (ChatGPT, Gemini) pour mes devoirs ? Quelle est la règle du CESAG ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>La règle d'or est simple : **L'IA est un PROF, pas un TRICHEUR.**</p>
-                    <p>✅ **OUI pour :**</p>
-                    <ul>
-                        <li>Comprendre des concepts complexes ou clarifier des notions.</li>
-                        <li>Reformuler ou corriger un texte que **vous avez rédigé**.</li>
-                        <li>Brainstormer et organiser vos idées/plans de travail.</li>
-                    </ul>
-                    <p>❌ **NON pour :**</p>
-                    <ul>
-                        <li>Soumettre un travail généré intégralement par l'IA sans aucune modification.</li>
-                        <li>Copier-coller du contenu sans citer la source (risque de plagiat).</li>
-                    </ul>
-                    <p style="font-style: italic; font-weight: 500;">Conseil : L'IA doit être un assistant, jamais un substitut à votre réflexion.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>J'ai oublié mon mot de passe Office 365 (Email/Teams), que faire ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>1. **Procédure de Secours :** Si la réinitialisation automatique ne fonctionne pas, utilisez le **modèle d'email** de réinitialisation disponible dans la section "**Boîte à Gadgets**" pour formuler votre demande.</p>
-                    <p>2. **Destinataire :** Envoyez l'email avec toutes les informations requises à l'adresse du support (voir section "Contact/Support").</p>
-                    <p>3. **Délai :** Le support vous enverra un mot de passe temporaire dans un délai de **24h à 48h ouvrées**.</p>
-                    <p style="font-weight: 600;">⚠️ Si vous avez configuré la double authentification, vous pouvez le changer vous-même via la page de connexion Microsoft.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>J'ai oublié mon mot de passe Moodle, que faire ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Pour Moodle (formations.cesagonline.com), la réinitialisation est **instantanée** et automatique :</p>
-                    <ol>
-                        <li>Allez sur la page de connexion de Moodle.</li>
-                        <li>Cliquez sur le lien "**Mot de passe perdu ?**".</li>
-                        <li>Entrez votre adresse email CESAG.</li>
-                        <li>Consultez votre boîte de réception pour un lien de réinitialisation direct.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Qui contacter exactement en cas de problème technique ou de compte ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>📧 **Email unique du Support :** <a href="mailto:oscarkakpo@cesag.edu.sn" style="color: var(--orange-cesag); font-weight: 700;">oscarkakpo@cesag.edu.sn</a></p>
-                    <p>🕐 **Heures de prise en charge :** Lundi au Vendredi, de **11h00 à 12h00** et de **16h30 à 18h00**.</p>
-                    <p>Pour un traitement rapide, votre email doit toujours mentionner : **Votre Nom et Prénom, Votre Formation et le Problème Exact.**</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <span>Comment télécharger Office 365 sur mon ordinateur ?</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Votre licence CESAG vous permet d'installer Office sur 5 appareils :</p>
-                    <ol>
-                        <li>Connectez-vous sur **www.office.com** avec votre email CESAG.</li>
-                        <li>Cliquez sur le bouton "**Installer Office**" (ou "Applications Microsoft 365") en haut à droite.</li>
-                        <li>Téléchargez le programme d'installation.</li>
-                        <li>Lancez l'installation et activez la suite logicielle avec votre identifiant CESAG.</li>
-                    </ol>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section class="section" id="contact">
-        <div class="section-header">
-            <h2><i class="fas fa-phone-alt"></i> Contact & Support</h2>
-            <p>Nous sommes là pour vous aider</p>
-        </div>
-        <div class="support-grid">
-            <div class="support-card">
-                <h3><i class="fas fa-envelope"></i> Email Support</h3>
-                <div class="support-info">
-                    <p><strong>oscarkakpo@cesag.edu.sn</strong></p>
-                    <p>Réponse sous 24-48h</p>
-                </div>
-                <a href="mailto:oscarkakpo@cesag.edu.sn" class="btn btn-primary">Envoyer un email</a>
-            </div>
-
-            <div class="support-card">
-                <h3><i class="fas fa-clock"></i> Heures de Réception</h3>
-                <div class="support-info">
-                    <p><strong>Matin :</strong> 11h00 - 12h00</p>
-                    <p><strong>Soir :</strong> 16h30 - 18h00</p>
-                    <p><strong>Jours :</strong> Lundi à Vendredi</p>
-                </div>
-            </div>
-
-            <div class="support-card">
-                <h3><i class="fas fa-link"></i> Liens Rapides</h3>
-                <div class="support-info">
-                    <p><a href="https://www.office.com" target="_blank">Office 365</a></p>
-                    <p><a href="https://formations.cesagonline.com" target="_blank">Moodle FOAD</a></p>
-                    <p><a href="https://teams.microsoft.com" target="_blank">Microsoft Teams</a></p>
-                    <p><a href="https://bibliotheque.cesag.sn/" target="_blank">Bibliothèque CESAG</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <h2 style="color: var(--orange-cesag); margin-bottom: 1rem;">
-                <i class="fas fa-graduation-cap"></i> Hub Digital CESAG
-            </h2>
-            <p style="margin-bottom: 2rem;">Votre boîte à outils numérique pour réussir</p>
-            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-                <a href="#about">À Propos</a>
-                <a href="#essentiels">Essentiels</a>
-                <a href="#support">Support</a>
-                <a href="#securite">Sécurité</a>
-                <a href="#productivite">Productivité</a>
-                <a href="#apprentissage">Apprentissage</a>
-                <a href="#gadgets">Gadgets</a>
-                <a href="#ia">IA</a>
-                <a href="#faq">FAQ</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Hub Digital CESAG. Tous droits réservés.</p>
-            <p>"Le CESAG, bien plus qu'une business school, une vision de l'Afrique conquérante."</p>
-        </div>
-    </footer>
-
-    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
+      </div>
+      <div class="copyhint">
+        <span class="mini">📌 Contacts CESAG :</span>
+        <span class="mini"><strong>MBA AG</strong> : <span style="font-family:var(--mono)">entmbaagdistance2526@cesag.edu.sn</span></span>
+        <span class="mini"><strong>MBA GP</strong> : <span style="font-family:var(--mono)">entmbagpdistance2526@cesag.edu.sn</span></span>
+        <span class="mini"><strong>MBA MSCH</strong> : <span style="font-family:var(--mono)">entmbamsch2526@cesag.edu.sn</span></span>
+      </div>
+      <div class="mini" style="margin-top:8px; font-weight:700;">🔗 Liens SharePoint mis à jour le 27/04/2026</div>
     </div>
 
-    <div id="emailModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('emailModal')">&times;</span>
-            <div id="modalBody"></div>
+    <!-- SECTION AUF -->
+    <div class="mba-section auf">
+      <h2>🌍 Suivi Cohorte AUF (AG AUF, GP AUF)</h2>
+      <div class="row">
+        <div class="left">
+          <a class="btn auf" href="https://cesagedu-my.sharepoint.com/:x:/r/personal/dfoad_cesag_edu_sn/_layouts/15/Doc.aspx?sourcedoc=%7B2B4B032B-68F0-4872-AFB8-EA806AA06AFE%7D&file=MBA%20AG%20et%20GP%20AUF%2025-26.xlsx&action=default&mobileredirect=true" target="_blank" rel="noopener">
+            📊 SUIVI MBA AG & GP AUF 25-26
+          </a>
+          <button class="btn auf" id="copyAGAUF">📧 Copier mail MBA AG AUF</button>
+          <button class="btn auf" id="copyGPAUF">📧 Copier mail MBA GP AUF</button>
         </div>
+        <div class="right">
+          <a class="btn ghost" href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZjU2OGE2NTYtZGM5MS00M2Y2LWE4OGUtZmQwMDYzYTMwYzQw%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d" target="_blank">
+            🎥 Salle virtuelle AG AUF
+          </a>
+          <a class="btn ghost" href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2VjZGVlYjktMmE3ZC00OThlLWJjZGQtZjA4ZGRhYzQ4ZGZj%40thread.v2/0?context=%7b%22Tid%22%3a%2207bc7abe-6e9d-4683-bdc4-aab1418606f2%22%2c%22Oid%22%3a%22f4fcd75f-f144-4188-a7c3-f0496ede9edf%22%7d" target="_blank">
+            🎥 Salle virtuelle GP AUF
+          </a>
+        </div>
+      </div>
+      <div class="copyhint">
+        <span class="mini">📌 Contacts AUF :</span>
+        <span class="mini"><strong>MBA AG AUF</strong> : <span style="font-family:var(--mono)">mbaagauf2526@cesag.edu.sn</span></span>
+        <span class="mini"><strong>MBA GP AUF</strong> : <span style="font-family:var(--mono)">enmbagpauf2526@cesag.edu.sn</span></span>
+      </div>
     </div>
-    
-    <div id="cvModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('cvModal')">&times;</span>
-            <h2><i class="fas fa-file-pdf"></i> Générateur de CV Basique</h2>
-            <p style="color: var(--gris-moyen); margin-bottom: 1rem;">Remplissez les champs pour générer un CV simple, formaté aux standards CESAG. Utilisez les points clés (tirets, verbes d'action) dans les zones de texte.</p>
-            
-            <form id="cvForm">
-                <div class="form-section">
-                    <h3>1. Informations Personnelles & Objectif</h3>
-                    <label for="cv_nom">Nom & Prénom(s) | Ville</label>
-                    <input type="text" id="cv_nom" value="[VOTRE NOM ET PRÉNOM(S)] | Dakar, Sénégal" required>
-                    
-                    <label for="cv_contact">Contact (Tél. | Email CESAG | LinkedIn)</label>
-                    <input type="text" id="cv_contact" value="[Tél.] | [email@cesag.edu.sn] | [Lien LinkedIn complet]">
+    <div class="toast" id="toast"></div>
+  </div>
 
-                    <label for="cv_titre">Titre/Accroche professionnelle (Ex: Étudiant Master 2 Finance)</label>
-                    <input type="text" id="cv_titre" value="Étudiant(e) en [FORMATION] au CESAG, à la recherche de [STAGE/CDD/CDI]">
-                    
-                    <label for="cv_profil">Profil / Objectif de Carrière (2-3 lignes décrivant vos forces)</label>
-                    <textarea id="cv_profil" rows="2">Jeune diplômé(e) spécialisé(e) en [domaine] avec un fort intérêt pour [secteur]. Rigoureux, proactif, j'ai développé des compétences en [compétence clé] et suis prêt à relever de nouveaux défis.</textarea>
-                </div>
+  <!-- TABS -->
+    <div class="toast" id="toast"></div>
+  </div>
 
-                <div class="form-section">
-                    <h3>2. Formation (Récents d'abord)</h3>
-                    <label for="cv_formation">Format : [Diplôme] | [Année] | [Institution]</label>
-                    <textarea id="cv_formation" rows="3">[MASTER/LICENCE X] | [2025] | CESAG, Dakar, Sénégal</textarea>
-                </div>
+  <div class="tabs">
+    <button class="tab active" data-tab="gp">MBA GP CESAG</button>
+    <button class="tab" data-tab="ag">MBA AG CESAG</button>
+    <button class="tab" data-tab="msch">MBA MSCH CESAG</button>
+    <button class="tab auf" data-tab="gp-auf">MBA GP AUF</button>
+    <button class="tab auf" data-tab="ag-auf">MBA AG AUF</button>
+  </div>
 
-                <div class="form-section">
-                    <h3>3. Expériences (Récents d'abord)</h3>
-                    <label for="cv_experience">Format : [Poste] | [Entreprise] | [Date]. **Utilisez des tirets ( - )** pour les actions/résultats.</label>
-                    <textarea id="cv_experience" rows="5">Stagiaire Junior | [Nom de l'Entreprise] | [Mois-Année]
-- Réalisé [Action] entraînant [Résultat chiffré : +15%]
-- Analysé [Problème] pour [Résultat bénéfique]
-
-Bénévole | [Association] | [Date]
-- Géré [Tâche] pour [Objectif]</textarea>
-                </div>
-
-                <div class="form-section">
-                    <h3>4. Compétences & Centres d'Intérêt</h3>
-                    <label for="cv_competences">Compétences : Logiciels, Langues, Hard/Soft Skills.</label>
-                    <textarea id="cv_competences" rows="3">Logiciels : Microsoft 365 (Excel Avancé, Power BI), Python.
-Langues : [Langue 1] - [Niveau], [Langue 2] - [Niveau].
-Soft Skills : Gestion de projet, Leadership.</textarea>
-                    
-                    <label for="cv_interets">Centres d'Intérêt (Refléter une qualité professionnelle)</label>
-                    <input type="text" id="cv_interets" value="Course à pied (Endurance), Lecture économique (Curiosité), Photographie (Créativité)">
-                </div>
-                
-                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="generateCVContent()">
-                    <i class="fas fa-magic"></i> Prévisualiser & Exporter
-                </button>
-            </form>
-            
-            <div id="cvOutput" style="display: none; margin-top: 2rem; padding: 20px; border: 1px solid var(--vert-cesag); border-radius: 8px; background: #f9f9f9;">
-                <h3 style="color: var(--vert-cesag);">Aperçu du CV</h3>
-                <div id="cvContent" style="margin-top: 1rem; line-height: 1.4;"></div>
-                <button class="btn btn-secondary" style="width: 100%; margin-top: 1.5rem;" onclick="exportCVtoPDF()">
-                    <i class="fas fa-download"></i> Exporter en PDF (Imprimer)
-                </button>
-            </div>
-
-        </div>
-    </div>
-    
-    <div id="converterModal" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <span class="modal-close" onclick="closeModal('converterModal')">&times;</span>
-            <h2><i class="fas fa-exchange-alt"></i> Taux de Change (XOF)</h2>
-            <p style="color: var(--gris-moyen); margin-bottom: 1rem;">Calculateur rapide basé sur le taux fixe EUR/XOF (1 EUR = 655.957 XOF).</p>
-
-            <form id="converterForm">
-                <label for="amount">Montant à convertir</label>
-                <input type="number" id="amount" value="100" min="0" step="0.01" style="width: 100%;">
-                
-                <label for="sourceCurrency" style="margin-top: 15px;">Devise Source</label>
-                <select id="sourceCurrency" style="width: 48%; display: inline-block;">
-                    <option value="EUR">Euro (€)</option>
-                    <option value="USD">Dollar US ($)</option>
-                    <option value="XOF">FCFA (XOF)</option>
-                </select>
-
-                <label for="targetCurrency" style="margin-top: 15px; width: 48%; float: right;">Devise Cible</label>
-                <select id="targetCurrency" style="width: 48%; display: inline-block; float: right;">
-                    <option value="XOF">FCFA (XOF)</option>
-                    <option value="EUR">Euro (€)</option>
-                    <option value="USD">Dollar US ($)</option>
-                </select>
-
-                <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 25px;" onclick="convertCurrency()">
-                    <i class="fas fa-calculator"></i> Calculer
-                </button>
-            </form>
-            
-            <div id="converterResult" class="converter-result" style="display: none;">
-                Résultat: <span id="conversionOutput"></span>
-            </div>
-            <p style="text-align: center; font-size: 0.8em; color: var(--gris-moyen); margin-top: 10px;">Le taux EUR/USD est une approximation (± 1.08).</p>
-        </div>
-    </div>
-    
-    <div id="quizModal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('quizModal')">&times;</span>
-            <h2>🧠 Quiz Digital CESAG</h2>
-            <p style="color: var(--gris-moyen);">Testez vos connaissances sur les outils essentiels. **5 questions rapides** !</p>
-            <div id="quizContainer" style="margin-top: 2rem;">
-                </div>
-            <div id="feedback" style="display: none; padding: 1rem; margin-top: 1rem; border-radius: 8px; text-align: center;"></div>
-            <button id="submitAnswerBtn" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" onclick="submitAnswer()">Valider la réponse</button>
-            <div id="quizResult" style="display: none;"></div>
-        </div>
+  <!-- PANEL GP CESAG -->
+  <section id="panel-gp" class="panel active">
+    <div class="toolbar">
+      <div class="group">
+        <input id="searchGP" type="search" placeholder="🔎 Rechercher (UE, module, mots-clés)..." />
+        <select id="moisGP">
+          <option value="ALL">Tous les mois</option>
+          <option value="MOIS 1">MOIS 1</option><option value="MOIS 2">MOIS 2</option><option value="MOIS 3">MOIS 3</option>
+          <option value="MOIS 4">MOIS 4</option><option value="MOIS 5">MOIS 5</option><option value="MOIS 6">MOIS 6</option>
+          <option value="MOIS 7">MOIS 7</option><option value="MOIS 8">MOIS 8</option><option value="MOIS 9">MOIS 9</option>
+          <option value="MOIS 10">MOIS 10</option><option value="MOIS 11">MOIS 11</option><option value="MOIS 12">MOIS 12</option>
+          <option value="A PLANIFIER">À planifier</option>
+        </select>
+        <select id="blocGP">
+          <option value="ALL">Tous les blocs</option>
+          <option value="S1">Semestre 1</option>
+          <option value="S2">Semestre 2</option>
+          <option value="CONF">Conférences & Panels</option>
+        </select>
+      </div>
+      <div class="group">
+        <span class="mini" id="countGP">—</span>
+      </div>
     </div>
 
-    <script>
-        // --- JAVASCRIPT GÉNÉRAL ET NAVIGATION ---
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navbarMenu');
+    <div class="card">
+      <h3><span class="pill">MBA GP CESAG</span> Modules officiels + suivi interne</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:120px;">Bloc</th>
+              <th style="min-width:340px;">UE / Module</th>
+              <th style="min-width:120px;">Code</th>
+              <th>CM</th>
+              <th>TD/TP</th>
+              <th>Total</th>
+              <th>TPE</th>
+              <th>Crédits</th>
+              <th style="min-width:110px;">Début</th>
+              <th style="min-width:110px;">Fin</th>
+              <th style="min-width:90px;">Mois</th>
+              <th style="min-width:420px;">Suivi (statut + note)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyGP"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('active'));
-            }
-        });
-        
-        function closeMenu() {
-             if (window.innerWidth <= 992) {
-                navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-            }
-        }
-        
-        function toggleDropdown(menuId) {
-            const menu = document.getElementById(menuId + '-menu');
-            if (window.innerWidth <= 992) {
-                document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
-                    if (otherMenu !== menu) {
-                        otherMenu.classList.remove('active');
-                    }
-                });
-                menu.classList.toggle('active');
-            }
-        }
-        
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            const menuId = dropdown.querySelector('.dropdown-menu').id.replace('-menu', '');
-            dropdown.addEventListener('mouseover', () => {
-                if (window.innerWidth > 992) {
-                    document.getElementById(menuId + '-menu').style.display = 'block';
-                }
-            });
-            dropdown.addEventListener('mouseout', () => {
-                if (window.innerWidth > 992) {
-                    document.getElementById(menuId + '-menu').style.display = 'none';
-                }
-            });
-        });
+  <!-- PANEL AG CESAG -->
+  <section id="panel-ag" class="panel">
+    <div class="toolbar">
+      <div class="group">
+        <input id="searchAG" type="search" placeholder="🔎 Rechercher (UE, module, mots-clés)..." />
+        <select id="moisAG">
+          <option value="ALL">Tous les mois</option>
+          <option value="MOIS 1">MOIS 1</option><option value="MOIS 2">MOIS 2</option><option value="MOIS 3">MOIS 3</option>
+          <option value="MOIS 4">MOIS 4</option><option value="MOIS 5">MOIS 5</option><option value="MOIS 6">MOIS 6</option>
+          <option value="MOIS 7">MOIS 7</option><option value="MOIS 8">MOIS 8</option><option value="MOIS 9">MOIS 9</option>
+          <option value="A PLANIFIER">À planifier</option>
+        </select>
+        <select id="blocAG">
+          <option value="ALL">Tous les blocs</option>
+          <option value="S1-TC">Semestre 1 – Tronc commun</option>
+          <option value="S2-TC">Semestre 2 – Tronc commun</option>
+          <option value="GE">Spécialisation – Gestion des Entreprises</option>
+          <option value="AP">Spécialisation – Administration Publique</option>
+        </select>
+      </div>
+      <div class="group">
+        <span class="mini" id="countAG">—</span>
+      </div>
+    </div>
 
+    <div class="card">
+      <h3><span class="pill">MBA AG CESAG</span> Modules officiels + suivi interne</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:180px;">Bloc</th>
+              <th style="min-width:360px;">UE / Module</th>
+              <th style="min-width:120px;">Code</th>
+              <th>CM</th>
+              <th>TD/TP</th>
+              <th>Total</th>
+              <th>TPE</th>
+              <th>Crédits</th>
+              <th style="min-width:110px;">Début</th>
+              <th style="min-width:110px;">Fin</th>
+              <th style="min-width:90px;">Mois</th>
+              <th style="min-width:420px;">Suivi (statut + note)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyAG"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        // --- Fonctions diverses et Modals ---
-        
-        // --- FONCTION D'ACCORDÉON FAQ (FINALE) ---
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const icon = element.querySelector('.faq-icon');
-            
-            // Ferme toutes les autres réponses ouvertes
-            document.querySelectorAll('.faq-answer.active').forEach(activeAnswer => {
-                if (activeAnswer !== answer) {
-                    activeAnswer.classList.remove('active');
-                    activeAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('active');
-                }
-            });
+  <!-- PANEL MSCH -->
+  <section id="panel-msch" class="panel">
+    <div class="toolbar">
+      <div class="group">
+        <input id="searchMSCH" type="search" placeholder="🔎 Rechercher (UE, module, mots-clés)..." />
+        <select id="moisMSCH">
+          <option value="ALL">Tous les mois</option>
+          <option value="MOIS 1">MOIS 1</option><option value="MOIS 2">MOIS 2</option><option value="MOIS 3">MOIS 3</option>
+          <option value="MOIS 4">MOIS 4</option><option value="MOIS 5">MOIS 5</option><option value="MOIS 6">MOIS 6</option>
+          <option value="MOIS 7">MOIS 7</option><option value="MOIS 8">MOIS 8</option><option value="MOIS 9">MOIS 9</option>
+          <option value="MOIS 10">MOIS 10</option><option value="MOIS 11">MOIS 11</option><option value="MOIS 12">MOIS 12</option>
+          <option value="MOIS 13">MOIS 13</option>
+          <option value="A PLANIFIER">À planifier</option>
+        </select>
+        <select id="blocMSCH">
+          <option value="ALL">Tous les blocs</option>
+          <option value="S1">Semestre 1</option>
+          <option value="S2">Semestre 2</option>
+        </select>
+      </div>
+      <div class="group">
+        <span class="mini" id="countMSCH">—</span>
+      </div>
+    </div>
 
-            // Ouvre ou ferme la réponse cliquée
-            answer.classList.toggle('active');
-            icon.classList.toggle('active');
-        }
+    <div class="card">
+      <h3><span class="pill">MBA MSCH</span> Modules officiels + suivi interne</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:120px;">Bloc</th>
+              <th style="min-width:340px;">UE / Module</th>
+              <th style="min-width:120px;">Code</th>
+              <th>CM</th>
+              <th>TD/TP</th>
+              <th>Total</th>
+              <th>TPE</th>
+              <th>Crédits</th>
+              <th style="min-width:110px;">Début</th>
+              <th style="min-width:110px;">Fin</th>
+              <th style="min-width:90px;">Mois</th>
+              <th style="min-width:420px;">Suivi (statut + note)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyMSCH"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        window.onscroll = function() {
-            const backToTop = document.getElementById('backToTop');
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        };
+  <!-- PANEL GP AUF -->
+  <section id="panel-gp-auf" class="panel">
+    <div class="toolbar">
+      <div class="group">
+        <input id="searchGPAUF" type="search" placeholder="🔎 Rechercher (UE, module, mots-clés)..." />
+        <select id="moisGPAUF">
+          <option value="ALL">Tous les mois</option>
+          <option value="MOIS 1">MOIS 1</option><option value="MOIS 2">MOIS 2</option><option value="MOIS 3">MOIS 3</option>
+          <option value="MOIS 4">MOIS 4</option><option value="MOIS 5">MOIS 5</option><option value="MOIS 6">MOIS 6</option>
+          <option value="MOIS 7">MOIS 7</option><option value="MOIS 8">MOIS 8</option><option value="MOIS 9">MOIS 9</option>
+          <option value="MOIS 10">MOIS 10</option><option value="MOIS 11">MOIS 11</option><option value="MOIS 12">MOIS 12</option>
+          <option value="A PLANIFIER">À planifier</option>
+        </select>
+        <select id="blocGPAUF">
+          <option value="ALL">Tous les blocs</option>
+          <option value="S1">Semestre 1</option>
+          <option value="S2">Semestre 2</option>
+          <option value="CONF">Conférences & Panels</option>
+        </select>
+      </div>
+      <div class="group">
+        <span class="mini" id="countGPAUF">—</span>
+      </div>
+    </div>
 
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-                closeMenu(); 
-            });
-        });
-        
-        // --- LOGIQUE MODAL EMAILS (Templates inchangés) ---
-        
-        const emailTemplates = {
-            email6: { title: "Demande de Réinitialisation Mot de Passe Office 365", template: `Objet : Demande de réinitialisation de mot de passe Office 365 - [Prénom NOM]\n\nCher Support Technique,\n\nJe vous écris pour demander la réinitialisation de mon mot de passe Office 365.\n\nJe n'ai plus accès à mon compte et la procédure de réinitialisation automatique n'a pas fonctionné/n'est pas disponible.\n\nVoici les informations me concernant pour vérification :\n\n- **Nom et Prénoms :** [VOTRE NOM ET PRÉNOMS COMPLETS]\n- **Email CESAG (Bloqué) :** [votre.email@cesag.edu.sn]\n- **Formation Actuelle :** [Licence X / Master Y]\n- **Numéro de Téléphone :** [+221 XX XXX XX XX]\n\nJe vous prie de bien vouloir procéder à la réinitialisation et de m'envoyer le nouveau mot de passe temporaire à mon adresse email personnelle suivante : [votre.email.personnel@exemple.com].\n\nJe vous remercie de votre diligence.\n\nCordialement,\n\n[Prénom NOM]\n[Master/Licence X] - CESAG` },
-            email7: { title: "Demander une Prolongation de Délai (Deadline)", template: `Objet : Demande de prolongation - [Nom du Devoir/Projet] - [Matière] - Prénom NOM\n\nCher Professeur [Nom],\n\nJe vous écris concernant la soumission du [Nom du Devoir/Projet] pour le cours de [Matière], dont la date limite est fixée au [Date initiale].\n\nJe rencontre actuellement [Expliquer brièvement la raison : une difficulté imprévue, une urgence familiale, une charge de travail temporairement très élevée due au projet X].\n\nPour garantir une qualité de travail qui soit à la hauteur de vos attentes, je souhaiterais solliciter une prolongation de [Nombre] jours, reportant ainsi la date de remise au [Date souhaitée].\n\nJe suis conscient de l'importance des délais et je vous remercie par avance de votre compréhension et de votre flexibilité.\n\nCordialement,\n\n[Prénom NOM]\n[Master/Licence X] - CESAG\n[prenom.nom@cesag.edu.sn]` },
-            email8: { title: "Follow-up (Retour/Remerciement après Contact Pro)", template: `Objet : Suite à notre échange du [Date] - Prénom NOM - CESAG\n\nBonjour [Titre Nom/Prénom],\n\nJe vous remercie sincèrement pour le temps que vous m'avez accordé [préciser le contexte : lors de votre intervention à l'école / pour notre appel téléphonique / la semaine dernière].\n\nNotre discussion sur [sujet spécifique] a été particulièrement enrichissante. [Mentionner un point précis : J'ai notamment apprécié vos conseils concernant le secteur X, ou J'ai pris note de votre suggestion de lire le livre Y].\n\nJe continuerai à suivre l'actualité de [Entreprise/Domaine] et me permets de rester à votre disposition si une opportunité de collaboration se présentait à l'avenir.\n\nJe vous souhaite une excellente semaine.\n\nCordialement,\n\n[Prénom NOM]\n[Master/Licence X] - CESAG\n[prenom.nom@cesag.edu.sn]\n[+221 XX XXX XX XX]` },
-            email1: { title: "Demander un Rendez-vous", template: `Objet : Demande de rendez-vous - [Sujet] - Prénom NOM\n\nBonjour [Prénom/Titre Nom],\n\nJe suis étudiant en [formation] au CESAG et je m'intéresse particulièrement à [domaine/sujet].\n\nVotre expertise en [domaine spécifique] m'impressionne et j'aimerais beaucoup bénéficier de vos conseils concernant [sujet précis : mon orientation, mon projet de mémoire, mon entrée dans le secteur X].\n\nSeriez-vous disponible pour un entretien de 20-30 minutes, en visio ou autour d'un café, dans les prochaines semaines ?\n\nJe suis flexible et m'adapterai à votre emploi du temps.\n\nJe vous remercie par avance pour votre considération.\n\nCordialement,\n\n[Prénom NOM]\n[Master/Licence X] - CESAG\n[prenom.nom@cesag.edu.sn]\n[+221 XX XXX XX XX]` },
-            email2: { title: "Demander une Lettre de Recommandation", template: `Objet : Demande de lettre de recommandation - [Candidature X] - Prénom NOM\n\nBonjour Professeur [Nom],\n\nJ'espère que vous allez bien.\n\nJe candidate actuellement pour [stage/master/emploi X] chez [entreprise/université], un poste qui correspond parfaitement à mon projet professionnel en [domaine].\n\nJ'ai beaucoup apprécié votre cours de [matière] en [année] où j'ai obtenu [note], et je pense que vous pourriez témoigner de [compétence spécifique : mon sérieux, ma capacité d'analyse, ma curiosité intellectuelle].\n\nSeriez-vous disponible pour rédiger une lettre de recommandation en ma faveur ? \n\nLa deadline est le [date]. Je peux vous fournir tous les documents nécessaires (CV, descriptif du poste, éléments à mettre en avant).\n\nJe comprends que c'est une demande qui prend du temps et je vous en serais infiniment reconnaissant.\n\nMerci pour votre considération.\n\nCordialement,\n\n[Prénom NOM]\n[Formation] - CESAG\n[prenom.nom@cesag.edu.sn]` },
-            email3: { title: "Candidature Spontanée Stage", template: `Objet : Candidature Spontanée - Stage [Domaine] - Prénom NOM - CESAG\n\nBonjour [Prénom/Madame/Monsieur],\n\nJe suis étudiant en Master [X] au CESAG et je suis très intéressé par les activités de [Entreprise] dans le domaine de [secteur précis].\n\n[HOOK : Mention d'un élément spécifique sur l'entreprise - article récent, projet, valeur]\nJ'ai récemment lu votre article sur [sujet] et cela a confirmé mon intérêt pour votre structure.\n\nFort d'une expérience en [domaine] lors de mon stage chez [Entreprise Y], j'ai développé des compétences en [compétence 1, 2, 3] que je souhaiterais mettre au service de votre équipe.\n\nJe recherche activement un stage de [durée] à partir de [date] et je serais honoré de pouvoir contribuer à [projet/département spécifique].\n\nVous trouverez ci-joint mon CV. Je reste à votre disposition pour un entretien.\n\nCordialement,\n\n[Prénom NOM]\n[Master X] - CESAG\n[prenom.nom@cesag.edu.sn]\n[+221 XX XXX XX XX]` },
-            email4: { title: "Relancer un Email", template: `Objet : RE: [Objet initial] - Relance\n\nBonjour [Prénom/Titre Nom],\n\nJe me permets de revenir vers vous concernant mon email du [date] relatif à [sujet].\n\nJe comprends que vous soyez très sollicité et je ne voudrais pas vous importuner. \n\nCependant, [contexte : deadline qui approche / opportunité qui pourrait m'échapper / besoin d'avancer], et j'aurais besoin de votre retour pour [raison].\n\nAuriez-vous eu le temps de considérer ma demande ?\n\nJe reste bien entendu à votre disposition pour tout complément d'information.\n\nMerci pour votre attention.\n\nCordialement,\n\n[Prénom NOM]\n[Formation] - CESAG\n[prenom.nom@cesag.edu.sn]\n\nNote : Relancer après 5-7 jours ouvrés. Maximum 2 relances.` },
-            email5: { title: "Remercier après un Entretien", template: `Objet : Merci pour l'entretien - [Poste X] - Prénom NOM\n\nBonjour [Prénom],\n\nJe tenais à vous remercier chaleureusement pour le temps que vous m'avez accordé [hier/ce matin] lors de notre entretien concernant [poste].\n\nNotre échange a renforcé mon intérêt pour [entreprise/projet] et particulièrement pour [élément spécifique discuté pendant l'entretien].\n\n[Si pertinent : \n- J'ai réfléchi à votre question sur X et voici ma réponse complémentaire...\n- Comme convenu, vous trouverez ci-joint le document Y]\n\nJ'espère avoir l'opportunité de contribuer à [projet/équipe] et reste à votre disposition pour toute information complémentaire.\n\nBien cordialement,\n\n[Prénom NOM]\n[Formation] - CESAG\n[prenom.nom@cesag.edu.sn]\n[+221 XX XXX XX XX]\n\nConseil : Envoyer ce mail dans les 24h suivant l'entretien !` }
-        };
+    <div class="card auf">
+      <h3><span class="pill auf">MBA GP AUF</span> Modules cohorte AUF + suivi interne</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:120px;">Bloc</th>
+              <th style="min-width:340px;">UE / Module</th>
+              <th style="min-width:120px;">Code</th>
+              <th>CM</th>
+              <th>TD/TP</th>
+              <th>Total</th>
+              <th>TPE</th>
+              <th>Crédits</th>
+              <th style="min-width:110px;">Début</th>
+              <th style="min-width:110px;">Fin</th>
+              <th style="min-width:90px;">Mois</th>
+              <th style="min-width:420px;">Suivi (statut + note)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyGPAUF"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        function openModal(emailId) {
-            const modal = document.getElementById('emailModal');
-            const modalBody = document.getElementById('modalBody');
-            const email = emailTemplates[emailId];
-            
-            modalBody.innerHTML = `
-                <h2>${email.title}</h2>
-                <div class="email-template">${email.template}</div>
-                <button class="copy-btn" onclick="copyEmail('${emailId}')">
-                    <i class="fas fa-copy"></i> Copier le contenu
-                </button>
-            `;
-            
-            modal.style.display = 'block';
-        }
+  <!-- PANEL AG AUF -->
+  <section id="panel-ag-auf" class="panel">
+    <div class="toolbar">
+      <div class="group">
+        <input id="searchAGAUF" type="search" placeholder="🔎 Rechercher (UE, module, mots-clés)..." />
+        <select id="moisAGAUF">
+          <option value="ALL">Tous les mois</option>
+          <option value="MOIS 1">MOIS 1</option><option value="MOIS 2">MOIS 2</option><option value="MOIS 3">MOIS 3</option>
+          <option value="MOIS 4">MOIS 4</option><option value="MOIS 5">MOIS 5</option><option value="MOIS 6">MOIS 6</option>
+          <option value="MOIS 7">MOIS 7</option><option value="MOIS 8">MOIS 8</option><option value="MOIS 9">MOIS 9</option>
+          <option value="A PLANIFIER">À planifier</option>
+        </select>
+        <select id="blocAGAUF">
+          <option value="ALL">Tous les blocs</option>
+          <option value="S1-TC">Semestre 1 – Tronc commun</option>
+          <option value="S2-TC">Semestre 2 – Tronc commun</option>
+          <option value="GE">Spécialisation – Gestion des Entreprises</option>
+          <option value="AP">Spécialisation – Administration Publique</option>
+        </select>
+      </div>
+      <div class="group">
+        <span class="mini" id="countAGAUF">—</span>
+      </div>
+    </div>
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
+    <div class="card auf">
+      <h3><span class="pill auf">MBA AG AUF</span> Modules cohorte AUF + suivi interne</h3>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="min-width:180px;">Bloc</th>
+              <th style="min-width:360px;">UE / Module</th>
+              <th style="min-width:120px;">Code</th>
+              <th>CM</th>
+              <th>TD/TP</th>
+              <th>Total</th>
+              <th>TPE</th>
+              <th>Crédits</th>
+              <th style="min-width:110px;">Début</th>
+              <th style="min-width:110px;">Fin</th>
+              <th style="min-width:90px;">Mois</th>
+              <th style="min-width:420px;">Suivi (statut + note)</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyAGAUF"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        function copyEmail(emailId) {
-            const text = emailTemplates[emailId].template;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Contenu copié ! Collez-le dans votre document/email.');
-            });
-        }
-        
-        window.onclick = function(event) {
-            const emailModal = document.getElementById('emailModal');
-            const quizModal = document.getElementById('quizModal');
-            const cvModal = document.getElementById('cvModal');
-            const converterModal = document.getElementById('converterModal');
-            if (event.target == emailModal) { closeModal('emailModal'); }
-            if (event.target == quizModal) { closeModal('quizModal'); }
-            if (event.target == cvModal) { closeModal('cvModal'); }
-            if (event.target == converterModal) { closeModal('converterModal'); }
-        }
+  </div>
 
-        // --- LOGIQUE MINI-GÉNÉRATEUR CV ---
+  <section id="panel-gp" class="panel active"><div class="card"><h3><span class="pill">MBA GP CESAG</span> Vue de démonstration</h3><div class="tablewrap"><table><thead><tr><th>Bloc</th><th>UE / Module</th><th>Code</th><th>Suivi</th></tr></thead><tbody id="tbodyGP"></tbody></table></div></div></section>
+  <section id="panel-ag" class="panel"><div class="card"><h3><span class="pill">MBA AG CESAG</span> Vue de démonstration</h3><div class="tablewrap"><table><thead><tr><th>Bloc</th><th>UE / Module</th><th>Code</th><th>Suivi</th></tr></thead><tbody id="tbodyAG"></tbody></table></div></div></section>
+  <section id="panel-msch" class="panel"><div class="card"><h3><span class="pill">MBA MSCH</span> Vue de démonstration</h3><div class="tablewrap"><table><thead><tr><th>Bloc</th><th>UE / Module</th><th>Code</th><th>Suivi</th></tr></thead><tbody id="tbodyMSCH"></tbody></table></div></div></section>
+</div>
 
-        function openCVModal() {
-            document.getElementById('cvModal').style.display = 'block';
-            document.getElementById('cvOutput').style.display = 'none'; // Cacher l'aperçu au début
-        }
+<footer>
+  <div>© CESAG • HUB FOAD personnel (pilotage interne) • Cohorte AUF intégrée</div>
+  <div class="right">CESAG ONLINE + AUF</div>
+</footer>
 
-        function generateCVContent() {
-            const nom = document.getElementById('cv_nom').value;
-            const titre = document.getElementById('cv_titre').value;
-            const contact = document.getElementById('cv_contact').value;
-            const profil = document.getElementById('cv_profil').value;
-            const formation = document.getElementById('cv_formation').value;
-            const experience = document.getElementById('cv_experience').value;
-            const competences = document.getElementById('cv_competences').value;
-            const interets = document.getElementById('cv_interets').value;
-            const cvContentElement = document.getElementById('cvContent');
-            
-            const formatSection = (title, content, isList = false) => {
-                if (!content.trim() || content.includes('[FORMATION]') || content.includes('[POSTE]...')) return '';
-                
-                let formattedContent = content;
-                
-                if (isList || content.includes('- ')) {
-                    // Supprimer les sauts de ligne inutiles et encadrer les tirets par des listes pour le rendu HTML
-                    formattedContent = content.split('\n')
-                                             .map(line => line.trim())
-                                             .filter(line => line.length > 0)
-                                             .map(line => line.replace(/^- /, '<li>') + '</li>')
-                                             .join('');
-                    formattedContent = formattedContent ? `<ul style="margin-left: -20px; margin-top: 5px;">${formattedContent}</ul>` : '';
-                } else {
-                    // Pour le texte simple (profil, formation, compétences, intérêts), utiliser des <p> pour les sauts de ligne
-                    formattedContent = content.split('\n')
-                                             .map(line => line.trim())
-                                             .filter(line => line.length > 0)
-                                             .map(line => `<p style="margin-bottom: 5px; white-space: pre-wrap; font-size: 0.95rem;">${line}</p>`)
-                                             .join('');
-                }
+<script>
+/* ============================
+   CONFIGURATION MODULAIRE – STRUCTURE POUR AJOUTER DE NOUVEAUX MBA
+   ============================ */
 
-                return `
-                    <h4 style="color: var(--vert-cesag); border-bottom: 2px solid var(--orange-cesag); padding-bottom: 5px; margin-top: 15px; margin-bottom: 8px; font-weight: 700; font-size: 1.1rem;">${title.toUpperCase()}</h4>
-                    <div style="margin-bottom: 10px;">
-                        ${formattedContent}
-                    </div>
-                `;
-            };
+// ============================================================================
+// SECTION 1 : DONNÉES DES MBA CESAG STANDARD
+// ============================================================================
 
-            const cvHTML = `
-                <div style="font-family: 'Inter', sans-serif; padding: 10px;">
-                    <h1 style="text-align: center; color: var(--vert-cesag); font-size: 1.8rem; margin-bottom: 5px; font-weight: 800;">${nom.toUpperCase().split('|')[0].trim()}</h1>
-                    <p class="titre" style="text-align: center; font-style: italic; font-size: 1rem; margin-bottom: 10px;">${titre}</p>
-                    <p class="contact" style="text-align: center; color: var(--gris-fonce); font-size: 0.9rem; border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;">
-                        ${contact}
-                    </p>
-                    
-                    ${formatSection("Profil et Objectif", profil)}
-                    ${formatSection("Formation", formation)}
-                    ${formatSection("Expériences Professionnelles", experience, true)}
-                    ${formatSection("Compétences Clés", competences)}
-                    ${formatSection("Centres d'Intérêt", interets)}
+/* ============================
+   1A) DONNÉES – MBA GP CESAG (EXHAUSTIF)
+   ============================ */
+const GP = [
+  // S1
+  { type:"UE", bloc:"S1", ue:"UE 1.1.1: Contexte des projets, programmes et portefeuille", meta:"", mois:"", debut:"", fin:"", credits:"", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1111", module:"Enjeux et défis du développement", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1112", module:"Principes et enjeux de l'administration publique", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/01/2026", fin:"14/02/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1113", module:"Environnement du projet en entreprise et défis des PME", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/01/2026", fin:"14/02/2026", mois:"MOIS 2" },
 
-                </div>
-            `;
+  { type:"UE", bloc:"S1", ue:"UE 1.1.2: Études de projet", meta:"24 / 16 / 40 / 80 • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.2", code:"MBAGP1121", module:"Études de faisabilité de projet", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.2", code:"MBAGP1122", module:"Étude d'impact environnemental et social", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 3" },
 
-            cvContentElement.innerHTML = cvHTML;
-            document.getElementById('cvOutput').style.display = 'block';
-        }
+  { type:"UE", bloc:"S1", ue:"UE 1.1.3: Analyse de projet", meta:"20 / 20 / 40 / 80 • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.3", code:"MBAGP1131", module:"Analyse financière de projet", cm:10, td:10, total:20, tpe:40, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.3", code:"MBAGP1132", module:"Analyse économique des projets", cm:10, td:10, total:20, tpe:40, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 5" },
 
-        function exportCVtoPDF() {
-            const cvOutput = document.getElementById('cvContent').innerHTML;
-            
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>CV - Export CESAG</title>');
-            
-            // Inclusion des styles pour le rendu du CV au format A4/PDF
-            printWindow.document.write('<style>');
-            printWindow.document.write(`
-                body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; color: #1F2937; line-height: 1.4; }
-                h1 { color: #006747; font-size: 18pt; text-align: center; margin-bottom: 5px; font-weight: 800; font-family: 'Poppins', sans-serif; }
-                .titre { text-align: center; font-style: italic; font-size: 11pt; margin-bottom: 10px; }
-                .contact { text-align: center; font-size: 9pt; border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px; }
-                h4 { color: #006747; border-bottom: 2px solid #F59E0B; padding-bottom: 5px; margin-top: 15px; margin-bottom: 8px; font-weight: 700; font-size: 14pt; font-family: 'Poppins', sans-serif; }
-                p { font-size: 10pt; margin-bottom: 5px; white-space: pre-wrap; }
-                ul { margin: 0; padding: 0; list-style: disc; margin-left: 15px !important; }
-                li { font-size: 10pt; margin-bottom: 3px; }
-                @media print { @page { margin: 1in; } }
-            `);
-            printWindow.document.write('</style></head><body>');
-            
-            printWindow.document.write(cvOutput);
-            
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            
-            printWindow.onload = function() {
-                printWindow.focus();
-                printWindow.print();
-            };
-        }
+  { type:"UE", bloc:"S1", ue:"UE 1.1.4: Planification des projets et programmes", meta:"20 / 20 / 40 / 80 • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.4", code:"MBAGP1141", module:"Planification stratégique des projets, programmes et portefeuille", cm:10, td:10, total:20, tpe:40, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.4", code:"MBAGP1142", module:"Planification opérationnelle et budgétisation des projets et programmes", cm:10, td:10, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 6" },
 
-        // --- LOGIQUE CONVERTISSEUR XOF ---
+  { type:"UE", bloc:"S1", ue:"UE 1.1.5: Management de projet", meta:"36 / 24 / 60 / 120 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1143", module:"Intégration et gestion de projets, programmes et portefeuille", cm:12, td:8, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1144", module:"Approches innovantes de gestion de projet et méthodologie agile", cm:12, td:8, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1145", module:"Partenariat public et privé", cm:12, td:8, total:20, tpe:40, credits:2, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 7" },
 
-        const EXCHANGE_RATES = {
-            EUR: 655.957, 
-            USD: 607.368, // ~ 655.957 / 1.08
-            XOF: 1
-        };
-        const SYMBOLS = {
-            EUR: '€',
-            USD: '$',
-            XOF: 'FCFA'
-        };
+  { type:"UE", bloc:"S1", ue:"UE 1.1.6: Gestion des ressources", meta:"40 / 20 / 60 / 120 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.6", code:"MBAGP1161", module:"Gestion des parties prenantes de projet, programmes et portefeuille", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.6", code:"MBAGP1162", module:"Logistique et gestion des ressources matérielles", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.6", code:"MBAGP1163", module:"Passation des marchés publiques", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.6", code:"MBAGP1164", module:"Management de la qualité", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
 
-        function openConverterModal() {
-            document.getElementById('converterModal').style.display = 'block';
-            document.getElementById('converterResult').style.display = 'none';
-        }
+  { type:"UE", bloc:"S1", ue:"UE 1.1.7: Enjeux juridiques et réglementaires", meta:"22 / 13 / 25 / 60 • 3 crédits", mois:"", debut:"", fin:"", credits:"3", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.7", code:"MBAGP1171", module:"Aspects juridiques et fiscaux des projets, programmes et portefeuille", cm:12, td:8, total:10, tpe:30, credits:2, debut:"21/10/2026", fin:"20/11/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.7", code:"MBAGP1172", module:"Codes éthiques et déontologie", cm:10, td:5, total:15, tpe:30, credits:1, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
 
-        function convertCurrency() {
-            const amount = parseFloat(document.getElementById('amount').value);
-            const source = document.getElementById('sourceCurrency').value;
-            const target = document.getElementById('targetCurrency').value;
-            const outputElement = document.getElementById('conversionOutput');
-            const resultBox = document.getElementById('converterResult');
+  // S2
+  { type:"UE", bloc:"S2", ue:"UE 1.2.1: Méthodologie de recherche", meta:"35 / 25 / 60 / 120 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.1", code:"MBAGP1211", module:"Méthodologie de recherche qualitative", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"21/11/2026", fin:"21/12/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.1", code:"MBAGP1212", module:"Méthodologie de recherche quantitative", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"21/11/2026", fin:"21/12/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.1", code:"MBAGP1213", module:"Méthodologie de rédaction du TFE", cm:5, td:5, total:10, tpe:20, credits:1, debut:"18/04/2026", fin:"04/03/2025", mois:"MOIS 4" },
 
-            if (isNaN(amount) || amount <= 0) {
-                outputElement.textContent = "Veuillez entrer un montant valide.";
-                resultBox.style.backgroundColor = '#FEE2E2';
-                resultBox.style.color = '#991B1B';
-                resultBox.style.display = 'block';
-                return;
-            }
+  { type:"UE", bloc:"S2", ue:"UE 1.2.2: Suivi et évaluation des projets", meta:"37 / 23 / 60 / 120 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1221", module:"Suivi et évaluation des projets, programmes et portefeuille", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1222", module:"Évaluation d'impact", cm:12, td:8, total:20, tpe:40, credits:2, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1223", module:"Capitalisation, gestion et dissémination des connaissances et apprentissages", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 10" },
 
-            if (source === target) {
-                 outputElement.innerHTML = `**${amount} ${SYMBOLS[source]}** est égal à **${amount.toFixed(2)} ${SYMBOLS[source]}**.`;
-            } else {
-                const amountInXOF = amount * EXCHANGE_RATES[source];
-                const convertedAmount = amountInXOF / EXCHANGE_RATES[target];
+  { type:"UE", bloc:"S2", ue:"UE 1.2.3: Maîtrise des risques", meta:"22 / 18 / 40 / 80 • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1231", module:"Gestion des risques et contrôle du projet, programmes et portefeuille", cm:12, td:8, total:20, tpe:40, credits:2, debut:"22/01/2027", fin:"21/02/2027", mois:"MOIS 11" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1232", module:"Intégration des risques transversaux (genre, inclusion, changement climatique, sécurité)", cm:5, td:5, total:10, tpe:20, credits:1, debut:"22/01/2027", fin:"21/02/2027", mois:"MOIS 11" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1233", module:"Audit de projet", cm:5, td:5, total:10, tpe:20, credits:1, debut:"22/02/2027", fin:"24/03/2027", mois:"MOIS 12" },
 
-                const formattedAmount = convertedAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, " "); // Formatage sans décimales pour XOF
-                const targetSymbol = SYMBOLS[target];
+  { type:"UE", bloc:"S2", ue:"UE 1.2.4: Mémoire professionnel", meta:"160 / 160 • 8 crédits", mois:"A PLANIFIER", debut:"", fin:"", credits:"8", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.4", code:"MBAGP1241", module:"Projet/Mémoire professionnel", cm:"", td:"", total:"", tpe:160, credits:8, debut:"", fin:"", mois:"A PLANIFIER" },
 
-                outputElement.innerHTML = `**${amount} ${SYMBOLS[source]}** équivaut à **${formattedAmount} ${targetSymbol}**.`;
-            }
+  { type:"UE", bloc:"S2", ue:"UE 1.2.5: Informatiques appliquées à la gestion de projet", meta:"10 / 36 / 20 / 40 • 2 crédits", mois:"", debut:"", fin:"", credits:"2", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.5", code:"MBAGP1251", module:"Outils informatiques appliqués à la gestion de projet", cm:10, td:10, total:20, tpe:40, credits:2, debut:"22/02/2027", fin:"24/03/2027", mois:"MOIS 12" },
 
-            resultBox.style.backgroundColor = '#D1FAE5';
-            resultBox.style.color = '#065F46';
-            resultBox.style.display = 'block';
-        }
+  { type:"UE", bloc:"S2", ue:"UE 1.2.6: Langue étrangère", meta:"12 / 8 / 20 / 40 • 2 crédits", mois:"", debut:"", fin:"", credits:"2", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.6", code:"MBAGP1261", module:"Anglais de spécialité", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 1" },
 
+  { type:"UE", bloc:"S2", ue:"UE 1.2.7: Leadership", meta:"5 / 5 / 10 / 20 • 1 crédit", mois:"", debut:"", fin:"", credits:"1", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.7", code:"MBAGP1271", module:"Transformation And Design Thinking", cm:5, td:5, total:10, tpe:20, credits:1, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 12" },
 
-        // --- LOGIQUE QUIZ ET MDP ---
-        
-        const allQuizQuestions = [
-            { question: "Quelle est la règle d'or d'utilisation de l'IA (ChatGPT, Gemini) au CESAG ?", options: ["L'IA est un TRICHEUR.", "L'IA est un PROF, pas un TRICHEUR.", "L'IA peut faire tous mes devoirs.", "Je peux copier-coller du contenu IA si je change quelques mots."], answer: "L'IA est un PROF, pas un TRICHEUR." },
-            { question: "Quel outil est OBLIGATOIRE et souvent lié à la validation de votre formation au CESAG ?", options: ["Microsoft Teams", "FutureLearn", "DeepL", "Miro"], answer: "FutureLearn" },
-            { question: "Quel est le minimum de caractères recommandé pour créer un mot de passe sûr ?", options: ["8 caractères", "10 caractères", "12 caractères", "20 caractères"], answer: "12 caractères" },
-            { question: "Quel outil est le plus adapté pour analyser de TRÈS longs documents (150K mots) selon le guide ?", options: ["ChatGPT", "Claude", "Gemini", "Perplexity AI"], answer: "Claude" },
-            { question: "Quelle étape est OBLIGATOIRE sur Moodle et conditionne l'accès aux examens ?", options: ["Télécharger Office 365", "L'évaluation des enseignements", "Créer une Phrase de Passe", "Envoyer un email au Support"], answer: "L'évaluation des enseignements" }
-        ];
+  { type:"UE", bloc:"CONF", ue:"UE 1.2.8: Conférences et Panels", meta:"Hors crédits", mois:"A PLANIFIER", debut:"", fin:"", credits:"0", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"CONF", ue:"UE 1.2.8", code:"MBAGP1281", module:"Management des programmes publiques", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"UE 1.2.8", code:"MBAGP1282", module:"Étude de cas de projets complexes", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"UE 1.2.8", code:"MBAGP1283", module:"Marketing et communication digitale en gestion de projet", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"UE 1.2.8", code:"MBAGP1284", module:"Gestion des parties prenantes", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+];
 
-        let randomizedQuestions = [];
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let selectedOption = null;
-        let isAnswerSubmitted = false;
-        const NUM_QUESTIONS_IN_QUIZ = 5;
+/* ============================
+   1B) DONNÉES – MBA AG CESAG
+   ============================ */
+const AG = [
+  // S1 – UE 1.1
+  { type:"UE", bloc:"S1-TC", ue:"UE 1.1 Environnement économique et juridique", meta:"", mois:"", debut:"", fin:"", credits:"", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG111", module:"Droit des affaires", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/01/2026", fin:"14/02/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG112", module:"Environnement économique et International de l'entreprise", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG113", module:"Fiscalité", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/01/2026", fin:"14/02/2026", mois:"MOIS 2" },
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
+  // S1 – UE 1.2
+  { type:"UE", bloc:"S1-TC", ue:"UE 1.2 Fondamentaux du management", meta:"", mois:"", debut:"", fin:"", credits:"14", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG121", module:"Théorie et Management des organisations", cm:20, td:10, total:30, tpe:20, credits:3, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG122", module:"Management interculturel", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG123", module:"Management stratégique", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG124", module:"Marketing", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG125", module:"Création d'entreprise", cm:15, td:10, total:25, tpe:20, credits:3, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG126", module:"Gestion des projets et suivi-évaluation", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 5" },
 
-        function openQuizModal() {
-            const quizModal = document.getElementById('quizModal');
-            randomizedQuestions = shuffleArray([...allQuizQuestions]).slice(0, NUM_QUESTIONS_IN_QUIZ);
-            currentQuestionIndex = 0;
-            score = 0;
-            isAnswerSubmitted = false;
-            selectedOption = null;
-            document.getElementById('quizResult').style.display = 'none';
-            document.getElementById('submitAnswerBtn').style.display = 'block';
-            document.getElementById('feedback').style.display = 'none';
-            quizModal.style.display = 'block';
-            loadQuestion();
-        }
-        
-        function loadQuestion() {
-            const container = document.getElementById('quizContainer');
-            const button = document.getElementById('submitAnswerBtn');
-            const q = randomizedQuestions[currentQuestionIndex];
-            selectedOption = null;
-            isAnswerSubmitted = false;
+  // S1 – UE 1.3
+  { type:"UE", bloc:"S1-TC", ue:"UE 1.3 Comptabilité, finance et contrôle", meta:"", mois:"", debut:"", fin:"", credits:"10", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG131", module:"Comptabilité", cm:20, td:10, total:30, tpe:20, credits:2, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG132", module:"Finance", cm:20, td:10, total:30, tpe:20, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG133", module:"Contrôle interne", cm:20, td:10, total:30, tpe:20, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG134", module:"Contrôle de gestion", cm:15, td:10, total:30, tpe:20, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG135", module:"Marchés financiers", cm:10, td:10, total:25, tpe:20, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 7" },
 
-            if (!q) { showQuizResult(); return; }
+  // S2 – UE 2.1
+  { type:"UE", bloc:"S2-TC", ue:"UE 2.1 Développement personnel et professionnel", meta:"", mois:"", debut:"", fin:"", credits:"10", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG211", module:"Méthodologie de rédaction de mémoire", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG212", module:"Anglais des affaires", cm:20, td:10, total:30, tpe:20, credits:3, debut:"15/12/2025", fin:"14/01/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG213", module:"Jeu d'entreprise", cm:15, td:15, total:30, tpe:20, credits:3, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG214", module:"Développement personnel et professionnel", cm:10, td:10, total:20, tpe:15, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 7" },
 
-            const shuffledOptions = shuffleArray([...q.options]);
+  // S2 – UE 2.2
+  { type:"UE", bloc:"S2-TC", ue:"UE 2.2 Stage et mémoire", meta:"160h • 8 crédits", mois:"A PLANIFIER", debut:"", fin:"", credits:"8", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2-TC", ue:"UE 2.2", code:"MBAAG221", module:"Stage professionnel + rédaction de mémoire (4 mois minimum)", cm:"", td:"", total:"", tpe:160, credits:8, debut:"", fin:"", mois:"A PLANIFIER" },
 
-            container.innerHTML = `
-                <h3 style="color: var(--vert-cesag); margin-bottom: 1rem;">Question ${currentQuestionIndex + 1}/${randomizedQuestions.length}</h3>
-                <p style="font-weight: 500; margin-bottom: 1.5rem;">${q.question}</p>
-                <div id="options">
-                    ${shuffledOptions.map((opt) => 
-                        `<div class="quiz-option" data-value="${opt}" onclick="selectOption(this, event)">${opt}</div>`
-                    ).join('')}
-                </div>
-            `;
-            button.textContent = (currentQuestionIndex < randomizedQuestions.length - 1) ? 'Valider la réponse' : 'Voir le résultat';
-            button.disabled = true;
-        }
+  // Spécialisation GE
+  { type:"UE", bloc:"GE", ue:"UE 2.3 Outils de Gestion de l'entreprise (Spécialisation GE)", meta:"140h • 12 crédits", mois:"", debut:"", fin:"", credits:"12", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG231", module:"Organisation et stratégie", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG232", module:"Administration et Gestion des ressources humaines", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG233", module:"Gestion financière", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG234", module:"Systèmes d'information", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 8" },
 
-        function selectOption(element, event) {
-            if (isAnswerSubmitted) return; 
-            const options = document.querySelectorAll('#options .quiz-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedOption = element.getAttribute('data-value');
-            document.getElementById('submitAnswerBtn').disabled = false;
-        }
+  // Spécialisation AP
+  { type:"UE", bloc:"AP", ue:"UE 2.4 Droit et Gestion publique (Spécialisation AP)", meta:"", mois:"", debut:"", fin:"", credits:"", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG241", module:"Droit de la fonction publique et de la décentralisation", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG242", module:"Acteurs et systèmes de protection sociale", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG243", module:"Science administrative et droit administratif", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG244", module:"Finances de l'État et Finances locales", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG245", module:"Gestion des ressources humaines dans l'administration publique", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG246", module:"Modernisation et digitalisation du service public", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 9" },
+];
 
-        function submitAnswer() {
-            if (isAnswerSubmitted || !selectedOption) return;
-            isAnswerSubmitted = true;
-            const q = randomizedQuestions[currentQuestionIndex];
-            let isCorrect = (selectedOption === q.answer);
-            
-            document.querySelectorAll('#options .quiz-option').forEach(opt => {
-                opt.onclick = null;
-                if (opt.getAttribute('data-value') === q.answer) { opt.classList.add('correct'); }
-                if (opt.classList.contains('selected') && !isCorrect) { opt.classList.add('incorrect'); }
-            });
+/* ============================
+   1C) DONNÉES – MBA MSCH
+   ============================ */
+const MSCH = [
+  { type:"UE", bloc:"S1", ue:"UE 1.1 Comptabilité finance", meta:"30 / 25 / 55 / 40 • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1 Comptabilité finance", code:"MBAGRH111", module:"Comptabilité générale", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"06/02/2026", fin:"08/03/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1", ue:"UE 1.1 Comptabilité finance", code:"MBAGRH112", module:"Comptabilité Analytique", cm:10, td:10, total:20, tpe:15, credits:1.0, debut:"09/03/2026", fin:"08/04/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1", ue:"UE 1.1 Comptabilité finance", code:"MBAGRH113", module:"Finance d'entreprise", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"09/04/2026", fin:"09/05/2026", mois:"MOIS 3" },
 
-            const button = document.getElementById('submitAnswerBtn');
-            const feedback = document.getElementById('feedback');
-            button.disabled = true; 
-            feedback.style.display = 'block';
-            
-            if (isCorrect) {
-                feedback.style.backgroundColor = '#D1FAE5'; 
-                feedback.innerHTML = `<i class="fas fa-check-circle" style="color: #059669;"></i> **Bonne réponse !**`;
-                score++;
-            } else {
-                feedback.style.backgroundColor = '#FEE2E2'; 
-                feedback.innerHTML = `<i class="fas fa-times-circle" style="color: #991B1B;"></i> **Mauvaise réponse.** La bonne réponse est affichée en vert.`;
-            }
+  { type:"UE", bloc:"S1", ue:"UE 1.2 Enseignements Propédeutiques", meta:"35 / 30 / 65 / 45 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.2 Enseignements Propédeutiques", code:"MBAGRH121", module:"Administration du Personnel", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"09/04/2026", fin:"09/05/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1", ue:"UE 1.2 Enseignements Propédeutiques", code:"MBAGRH124", module:"Condition de Travail et Qualité de Vie", cm:5, td:5, total:10, tpe:5, credits:1.0, debut:"10/05/2026", fin:"09/05/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S1", ue:"UE 1.2 Enseignements Propédeutiques", code:"MBAGRH125", module:"Gestion des Compétences", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"10/05/2026", fin:"09/05/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S1", ue:"UE 1.2 Enseignements Propédeutiques", code:"MBAGRH126", module:"Communication Organisationnelle", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"10/05/2026", fin:"09/06/2026", mois:"MOIS 5" },
 
-            setTimeout(() => {
-                feedback.style.display = 'none';
-                currentQuestionIndex++;
-                if (currentQuestionIndex < randomizedQuestions.length) {
-                    loadQuestion();
-                } else {
-                    showQuizResult();
-                }
-            }, 2000);
-        }
+  { type:"UE", bloc:"S1", ue:"UE1.3 Droit Social et Relations Professionnelles", meta:"40 / 35 / 75 / 55 • 7 crédits", mois:"", debut:"", fin:"", credits:"7", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE1.3 Droit Social et Relations Professionnelles", code:"MBAGRH131", module:"Conventions Internationales sur le Travail", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"06/02/2026", fin:"08/03/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1", ue:"UE1.3 Droit Social et Relations Professionnelles", code:"MBAGRH132", module:"Droit de la Sécurité Sociale", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"09/03/2026", fin:"08/04/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1", ue:"UE1.3 Droit Social et Relations Professionnelles", code:"MBAGRH133", module:"Normalisation et Management de la Qualité", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"10/05/2026", fin:"09/06/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1", ue:"UE1.3 Droit Social et Relations Professionnelles", code:"MBAGRH134", module:"Droit du Travail", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"10/06/2026", fin:"10/07/2026", mois:"MOIS 6" },
 
-        function showQuizResult() {
-            const container = document.getElementById('quizContainer');
-            const resultBox = document.getElementById('quizResult');
-            const total = randomizedQuestions.length;
-            const percentage = (score / total) * 100;
-            let rewardClass = '';
-            let message = '';
-            let icon = '';
+  { type:"UE", bloc:"S1", ue:"UE 1.4  Audit Social et Contrôle de Gestion", meta:"30 / 30 / 60 / 45 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.4  Audit Social et Contrôle de Gestion", code:"MBAGRH141", module:"Contrôle de Gestion Sociale", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"10/06/2026", fin:"10/07/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.4  Audit Social et Contrôle de Gestion", code:"MBAGRH142", module:"Audit Social et Audit de la RSE", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"11/07/2026", fin:"09/08/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S1", ue:"UE 1.4  Audit Social et Contrôle de Gestion", code:"MBAGRH143", module:"Bilan Social", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"11/07/2026", fin:"09/08/2026", mois:"MOIS 7" },
 
-            if (percentage >= 80) {
-                rewardClass = 'reward-gold'; icon = 'fas fa-medal';
-                message = `Félicitations ! Vous obtenez la **Médaille d'Or** 🥇 ! Vous maîtrisez parfaitement les outils du Hub Digital. Vous êtes prêt(e) pour la rentrée !`;
-            } else if (percentage >= 50) {
-                rewardClass = 'reward-silver'; icon = 'fas fa-star';
-                message = `Bon travail ! Vous obtenez la **Médaille d'Argent** 🥈. Quelques révisions sur les sections IA et Cybersécurité, et vous serez au top.`;
-            } else {
-                rewardClass = 'reward-bronze'; icon = 'fas fa-exclamation-circle';
-                message = `Continuez de lire ! Vous obtenez la **Médaille de Bronze** 🥉. Relisez les sections Essentiels et Cybersécurité pour mieux maîtriser vos outils.`;
-            }
+  { type:"UE", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", meta:"60 / 50 / 110 / 80 • 7 crédits", mois:"", debut:"", fin:"", credits:"7", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH151", module:"Management de la Formation", cm:10, td:10, total:20, tpe:15, credits:1.0, debut:"11/07/2026", fin:"09/08/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH152", module:"Théorie des organisations", cm:10, td:10, total:20, tpe:15, credits:1.0, debut:"10/08/2026", fin:"09/09/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH153", module:"Appréciation des Performances du Personnel", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"10/08/2026", fin:"09/09/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH153", module:"Recrutement et Intégration", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"10/08/2026", fin:"09/09/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH154", module:"Management des Rémunérations", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"10/09/2026", fin:"10/10/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S1", ue:"UE 1.5  Management des Hommes et des Equipes", code:"MBAGRH155", module:"Logiciel Spécialisé de Paie", cm:10, td:10, total:20, tpe:15, credits:1.0, debut:"10/09/2026", fin:"10/10/2026", mois:"MOIS 9" },
 
-            container.innerHTML = `<p style="font-size: 1.2rem; font-weight: 600;">Votre score : ${score} / ${total}</p>`;
-            resultBox.className = '';
-            resultBox.classList.add('reward-box', rewardClass);
-            resultBox.innerHTML = `<i class="${icon}" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><p>${message}</p>`;
-            resultBox.style.display = 'block';
-            document.getElementById('submitAnswerBtn').style.display = 'none';
-        }
-        
-        function generatePassword() { 
-            const length = document.getElementById('length').value;
-            const useUpper = document.getElementById('uppercase').checked;
-            const useLower = document.getElementById('lowercase').checked;
-            const useNumbers = document.getElementById('numbers').checked;
-            const useSymbols = document.getElementById('symbols').checked;
-            const outputElement = document.getElementById('passwordOutput');
-            let charset = "";
-            let password = "";
-            let requirementsMet = 0;
-            const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            const lowerChars = "abcdefghijklmnopqrstuvwxyz";
-            const numberChars = "0123456789";
-            const symbolChars = "!@#$%^&*()-_+=[]{}|;:',.<>/?";
-            if (useUpper) { charset += upperChars; requirementsMet++; }
-            if (useLower) { charset += lowerChars; requirementsMet++; }
-            if (useNumbers) { charset += numberChars; requirementsMet++; }
-            if (useSymbols) { charset += symbolChars; requirementsMet++; }
-            if (requirementsMet === 0) { outputElement.textContent = "Sélectionnez au moins un type de caractère."; return; }
-            if (useUpper) password += upperChars.charAt(Math.floor(Math.random() * upperChars.length));
-            if (useLower) password += lowerChars.charAt(Math.floor(Math.random() * lowerChars.length));
-            if (useNumbers) password += numberChars.charAt(Math.floor(Math.random() * numberChars.length));
-            if (useSymbols) password += symbolChars.charAt(Math.floor(Math.random() * symbolChars.length));
-            for (let i = password.length; i < length; i++) { password += charset.charAt(Math.floor(Math.random() * charset.length)); }
-            password = password.split('').sort(() => 0.5 - Math.random()).join('');
-            outputElement.textContent = password;
-        }
+  { type:"UE", bloc:"S2", ue:"UE 2.1 Stratégie et Changement Organisationnel", meta:"30 / 20 / 50 / 35 • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 2.1 Stratégie et Changement Organisationnel", code:"MBAGRH211", module:"Stratégie d'Entreprise et GRH", cm:10, td:5, total:15, tpe:10, credits:2.0, debut:"10/09/2026", fin:"10/10/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S2", ue:"UE 2.1 Stratégie et Changement Organisationnel", code:"MBAGRH212", module:"Diagnostic Organisationnel et Gestion du Changement", cm:10, td:5, total:15, tpe:10, credits:2.0, debut:"11/10/2026", fin:"10/11/2026", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE 2.1 Stratégie et Changement Organisationnel", code:"MBAGRH213", module:"Gestion Prévisionnelle des Emplois et des Compétences", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"11/10/2026", fin:"10/11/2026", mois:"MOIS 10" },
 
-        function copyPassword() { 
-            const password = document.getElementById('passwordOutput').textContent;
-            if (password && password !== "Cliquez pour générer..." && password !== "Sélectionnez au moins un type de caractère.") {
-                navigator.clipboard.writeText(password).then(() => {
-                    alert('✅ Mot de passe copié dans le presse-papiers !');
-                });
-            }
-        }
-        
-        function checkPasswordStrength(password) { 
-            const strengthElement = document.getElementById('passwordStrength');
-            let score = 0;
-            let complexity = 0;
-            if (password.length >= 8) complexity = 1;
-            if (password.length >= 12) complexity = 2;
-            if (password.length >= 16) complexity = 3;
-            if (/[a-z]/.test(password)) score++;
-            if (/[A-Z]/.test(password)) score++;
-            if (/[0-9]/.test(password)) score++;
-            if (/[^A-Za-z0-9]/.test(password)) score++; 
-            let finalStrength = 0;
-            if (password.length === 0) { strengthElement.textContent = "Veuillez entrer un mot de passe."; strengthElement.className = ''; return; } 
-            else if (password.length < 8) { finalStrength = 0; } 
-            else if (score < 3 || complexity == 1) { finalStrength = 1; } 
-            else if (score == 3 && complexity > 1) { finalStrength = 2; } 
-            else if (score == 4 && complexity >= 2) { finalStrength = 3; } 
-            else if (score == 4 && complexity == 3) { finalStrength = 3; }
-            
-            let feedback = ["Force : Très faible (Minimum 8 caractères)", "Force : Faible (Ajouter des majuscules, chiffres, symboles)", "Force : Moyenne (Bonne longueur, mais manque de complexité)", "Force : Forte (Très bien !)", "Force : EXCELLENTE (Phrase de passe sécurisée !)"];
-            strengthElement.textContent = feedback[finalStrength];
-            strengthElement.className = `strength-${finalStrength}`;
-        }
+  { type:"UE", bloc:"S2", ue:"UE2.2 Gestion Internationale des RH", meta:"40 / 20 / 60 / 40 • 5 crédits", mois:"", debut:"", fin:"", credits:"5", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE2.2 Gestion Internationale des RH", code:"MBAGRH221", module:"Environnement Economique International et GRH", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"11/10/2026", fin:"10/11/2026", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE2.2 Gestion Internationale des RH", code:"MBAGRH222", module:"Mobilité Internationale des Ressources Humaines", cm:10, td:5, total:15, tpe:10, credits:2.0, debut:"11/11/2026", fin:"11/12/2026", mois:"MOIS 11" },
+  { type:"M", bloc:"S2", ue:"UE2.2 Gestion Internationale des RH", code:"MBAGRH223", module:"Management Interculturel", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"11/11/2026", fin:"11/12/2026", mois:"MOIS 11" },
+  { type:"M", bloc:"S2", ue:"UE2.2 Gestion Internationale des RH", code:"MBAGRH224", module:"EGRH (e-recrutement, e-formation, ecommunication)", cm:10, td:5, total:15, tpe:10, credits:1.0, debut:"11/11/2026", fin:"11/12/2026", mois:"MOIS 11" },
 
-        document.addEventListener('DOMContentLoaded', () => {
-            generatePassword();
-            // Pour le CV, pré-générer une fois pour montrer un exemple au premier clic
-            document.getElementById('cvModal').addEventListener('click', (event) => {
-                if (!document.getElementById('cvContent').innerHTML.trim()) generateCVContent();
-            }, { once: true });
-        }); 
-    </script>
+  { type:"UE", bloc:"S2", ue:"UE 2.3 Le Métier de Consultant en GRH", meta:"30 / 20 / 50 / 30 • 5 crédits", mois:"", debut:"", fin:"", credits:"5", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 2.3 Le Métier de Consultant en GRH", code:"MBAGRH231", module:"Création et Gestion d'un Cabinet de Conseil en GRH", cm:10, td:5, total:15, tpe:10, credits:2.0, debut:"12/12/2026", fin:"11/01/2027", mois:"MOIS 12" },
+  { type:"M", bloc:"S2", ue:"UE 2.3 Le Métier de Consultant en GRH", code:"MBAGRH232", module:"Conduite d'une Mission d'Intervention en GRH", cm:5, td:5, total:10, tpe:5, credits:1.0, debut:"12/12/2026", fin:"11/01/2027", mois:"MOIS 12" },
+  { type:"M", bloc:"S2", ue:"UE 2.3 Le Métier de Consultant en GRH", code:"MBAGRH233", module:"Conception et Conduite d'un Projet", cm:15, td:10, total:25, tpe:15, credits:2.0, debut:"12/12/2026", fin:"11/01/2027", mois:"MOIS 12" },
+
+  { type:"UE", bloc:"S2", ue:"UE 2.4 Développement Personnel", meta:"45 / 35 / 80 / 55 • 8 crédits", mois:"", debut:"", fin:"", credits:"8", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 2.4 Développement Personnel", code:"MBAGRH241", module:"Développement Personnel et Professionnel", cm:5, td:5, total:10, tpe:5, credits:1.0, debut:"12/01/2027", fin:"11/02/2027", mois:"MOIS 13" },
+  { type:"M", bloc:"S2", ue:"UE 2.4 Développement Personnel", code:"MBAGRH242", module:"Méthodologie de la recherche", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"S2", ue:"UE 2.4 Développement Personnel", code:"MBAGRH243", module:"Simulation d'Entreprises", cm:10, td:10, total:20, tpe:15, credits:2.0, debut:"12/01/2027", fin:"11/02/2027", mois:"MOIS 13" },
+  { type:"M", bloc:"S2", ue:"UE 2.4 Développement Personnel", code:"MBAGRH244", module:"Anglais des Affaires", cm:20, td:10, total:30, tpe:20, credits:3.0, debut:"09/04/2026", fin:"09/05/2026", mois:"MOIS 3" },
+
+  { type:"UE", bloc:"S2", ue:"UE 2.5 Stage et Mémoire", meta:"150h • 6 crédits", mois:"A PLANIFIER", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 2.5 Stage et Mémoire", code:"MBAGRH251", module:"Stage et Mémoire", cm:"", td:"", total:"", tpe:150, credits:6.0, debut:"", fin:"", mois:"A PLANIFIER" },
+];
+
+// ============================================================================
+// SECTION 2 : DONNÉES MBA AUF (Basées sur vos fichiers Agenda AUF)
+// ============================================================================
+
+/* ============================
+   2A) DONNÉES – MBA GP AUF
+   ============================ */
+const GPAUF = [
+  // S1
+  { type:"UE", bloc:"S1", ue:"UE 1.1.1: Contexte des projets, programmes et portefeuille", meta:"120h • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1111", module:"Enjeux et défis du développement", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/02/2026", fin:"14/03/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1112", module:"Principes et enjeux de l'administration publique", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 1" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.1", code:"MBAGP1113", module:"Environnement du projet en entreprise et défis des PME", cm:12, td:8, total:20, tpe:40, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 1" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.1.2: Etudes de projet", meta:"80h • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.2", code:"MBAGP1121", module:"Etudes de faisabilité de projet", cm:12, td:8, total:20, tpe:40, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.2", code:"MBAGP1122", module:"Etude d'impact environnemental et social", cm:12, td:8, total:20, tpe:40, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.1.3: Analyse de projet", meta:"80h • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.3", code:"MBAGP1131", module:"Analyse financière de projet", cm:10, td:10, total:20, tpe:40, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.3", code:"MBAGP1132", module:"Analyse économique des projets", cm:10, td:10, total:20, tpe:40, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.1.4: Planification des projets et programmes", meta:"80h • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.4", code:"MBAGP1141", module:"Planification stratégique des projets, programmes et portefeuille", cm:10, td:10, total:20, tpe:40, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 4" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.4", code:"MBAGP1142", module:"Planification opérationnelle et budgétisation des projets et programmes", cm:10, td:10, total:20, tpe:40, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 4" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.1.5: Management de projet", meta:"120h • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1143", module:"Intégration et gestion de projets, programmes et portefeuille", cm:12, td:8, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1144", module:"Approches innovantes de gestion de projet et méthodologie agile", cm:12, td:8, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.5", code:"MBAGP1145", module:"Partenariat public et privé", cm:12, td:8, total:20, tpe:40, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.2.1: Gestion des ressources", meta:"120h • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.2.1", code:"MBAGP1211", module:"Gestion des parties prenantes de projet, programmes et portefeuille", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.2.1", code:"MBAGP1212", module:"Logistique et gestion des ressources matérielles", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.2.1", code:"MBAGP1151", module:"Passation des marchés publics", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" },
+  { type:"M", bloc:"S1", ue:"UE 1.2.1", code:"MBAGP1213", module:"Management de la qualité", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+
+  { type:"UE", bloc:"S1", ue:"UE 1.1.7: Enjeux juridiques et réglementaires", meta:"60h • 3 crédits", mois:"", debut:"", fin:"", credits:"3", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.7", code:"MBAGP1231", module:"Aspects juridiques et fiscaux des projets, programmes et portefeuille", cm:12, td:8, total:20, tpe:40, credits:2, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+  { type:"M", bloc:"S1", ue:"UE 1.1.7", code:"MBAGP1232", module:"Codes éthiques et déontologie", cm:10, td:5, total:15, tpe:30, credits:1, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+
+  // S2
+  { type:"UE", bloc:"S2", ue:"UE 1.1.6: Méthodologie de recherche", meta:"120h • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.1.6", code:"MBAGP1161", module:"Méthodologie de recherche qualitative", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S2", ue:"UE 1.1.6", code:"MBAGP1162", module:"Méthodologie de recherche quantitative", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+  { type:"M", bloc:"S2", ue:"UE 1.1.6", code:"MBAGP1163", module:"Méthodologie de rédaction du TFE", cm:5, td:5, total:10, tpe:20, credits:1, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.2.2: Suivi et évaluation des projets", meta:"120h • 6 crédits", mois:"", debut:"", fin:"", credits:"6", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1221", module:"Suivi et évaluation des projets, programmes et portefeuille", cm:15, td:10, total:25, tpe:50, credits:2.5, debut:"21/10/2026", fin:"20/11/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1222", module:"Evaluation d'impact", cm:12, td:8, total:20, tpe:40, credits:2, debut:"21/10/2026", fin:"20/11/2026", mois:"MOIS 9" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.2", code:"MBAGP1223", module:"Capitalisation, gestion et dissémination des connaissances et apprentissages", cm:10, td:5, total:15, tpe:30, credits:1.5, debut:"21/10/2026", fin:"20/11/2026", mois:"MOIS 9" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.2.3: Maîtrise des risques", meta:"80h • 4 crédits", mois:"", debut:"", fin:"", credits:"4", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1233", module:"Gestion des risques et contrôle du projet, programmes et portefeuille", cm:12, td:8, total:20, tpe:40, credits:2, debut:"21/11/2026", fin:"21/12/2026", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1234", module:"Intégration des risques transversaux (genre, inclusion, changement climatique, sécurité)", cm:5, td:5, total:10, tpe:20, credits:1, debut:"21/11/2026", fin:"21/12/2026", mois:"MOIS 10" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.3", code:"MBAGP1242", module:"Audit de projet", cm:5, td:5, total:10, tpe:20, credits:1, debut:"21/11/2026", fin:"21/12/2026", mois:"MOIS 10" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.2.9: Mémoire professionnel", meta:"160h • 8 crédits", mois:"A PLANIFIER", debut:"", fin:"", credits:"8", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.9", code:"MBAGP1241", module:"Projet/Mémoire professionnel", cm:"", td:"", total:"", tpe:160, credits:8, debut:"", fin:"", mois:"A PLANIFIER" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.2.5: Informatiques appliquées à la gestion de projet", meta:"40h • 2 crédits", mois:"", debut:"", fin:"", credits:"2", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.5", code:"MBAGP1251", module:"Outils informatiques appliqués à la gestion de projet", cm:10, td:10, total:20, tpe:40, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.7.7: Langue étrangère", meta:"40h • 2 crédits", mois:"", debut:"", fin:"", credits:"2", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.7.7", code:"MBAGP1261", module:"Anglais de spécialité", cm:12, td:8, total:20, tpe:40, credits:2, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 12" },
+
+  { type:"UE", bloc:"S2", ue:"UE 1.2.7: Leadership & Innovation", meta:"40h • 2 crédits", mois:"", debut:"", fin:"", credits:"2", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.7", code:"MBAGP1271", module:"Leadership", cm:5, td:5, total:10, tpe:20, credits:1, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 12" },
+  { type:"M", bloc:"S2", ue:"UE 1.2.7", code:"MBAGP1272", module:"Transformation And Design Thinking", cm:5, td:5, total:10, tpe:20, credits:1, debut:"22/12/2026", fin:"21/01/2027", mois:"MOIS 12" },
+
+  // Conférences
+  { type:"UE", bloc:"CONF", ue:"Conférences et Panels (hors crédits)", meta:"0 crédit ECTS", mois:"A PLANIFIER", debut:"", fin:"", credits:"0", cm:"", td:"", total:"", tpe:"" },
+  { type:"M", bloc:"CONF", ue:"Conférences", code:"MBAGP1262", module:"Management des programmes publics", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"Conférences", code:"MBAGP1263", module:"Etude de cas de projets complexes", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"Conférences", code:"MBAGP1264", module:"Marketing et communication digitale en gestion de projet", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+  { type:"M", bloc:"CONF", ue:"Conférences", code:"MBAGP1282", module:"Gestion des parties prenantes (conférence)", cm:"", td:"", total:"", tpe:"", credits:0, debut:"", fin:"", mois:"A PLANIFIER" },
+];
+
+/* ============================
+   2B) DONNÉES – MBA AG AUF
+   ============================ */
+const AGAUF = [
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.1 Environnement économique et juridique",
+    meta: "60h • 6 crédits",
+    modules: [
+      { type:"UE", bloc:"S1-TC", ue:"UE 1.1", code:"", module:"UE 1.1 Environnement économique et juridique", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG111", module:"Droit des affaires", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 1" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG112", module:"Environnement économique et International de l'entreprise", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 1" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.1", code:"MBAAG113", module:"Fiscalité", cm:10, td:10, total:20, tpe:15, credits:2, debut:"15/02/2026", fin:"17/03/2026", mois:"MOIS 1" }
+    ]
+  },
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.2 Fondamentaux du management",
+    meta: "135h • 14 crédits",
+    modules: [
+      { type:"UE", bloc:"S1-TC", ue:"UE 1.2", code:"", module:"UE 1.2 Fondamentaux du management", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG121", module:"Théorie et Management des organisations", cm:20, td:10, total:30, tpe:20, credits:3, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG122", module:"Management interculturel", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG123", module:"Management stratégique", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/03/2026", fin:"17/04/2026", mois:"MOIS 2" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG124", module:"Marketing", cm:10, td:10, total:20, tpe:15, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 4" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG125", module:"Création d'entreprise", cm:15, td:10, total:25, tpe:20, credits:3, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 4" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.2", code:"MBAAG126", module:"Gestion des projets et suivi-évaluation", cm:10, td:10, total:20, tpe:15, credits:2, debut:"19/05/2026", fin:"18/06/2026", mois:"MOIS 4" }
+    ]
+  },
+  {
+    section: "S1-TC",
+    titre: "SEMESTRE 1 - Tronc commun",
+    ue: "UE 1.3 Comptabilité, finance et contrôle",
+    meta: "145h • 10 crédits",
+    modules: [
+      { type:"UE", bloc:"S1-TC", ue:"UE 1.3", code:"", module:"UE 1.3 Comptabilité, finance et contrôle", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG131", module:"Comptabilité", cm:20, td:10, total:30, tpe:20, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG132", module:"Finance d'entreprise", cm:20, td:10, total:30, tpe:20, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG133", module:"Contrôle interne", cm:20, td:10, total:30, tpe:20, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG134", module:"Contrôle de gestion", cm:15, td:10, total:25, tpe:20, credits:2, debut:"19/06/2026", fin:"19/07/2026", mois:"MOIS 5" },
+      { type:"M", bloc:"S1-TC", ue:"UE 1.3", code:"MBAAG135", module:"Marchés financiers", cm:10, td:10, total:20, tpe:15, credits:2, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" }
+    ]
+  },
+  {
+    section: "S2-TC",
+    titre: "SEMESTRE 2 - Tronc commun",
+    ue: "UE 2.1 Développement personnel et professionnel",
+    meta: "100h • 9 crédits",
+    modules: [
+      { type:"UE", bloc:"S2-TC", ue:"UE 2.1", code:"", module:"UE 2.1 Développement personnel et professionnel", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG211", module:"Méthodologie de rédaction de mémoire", cm:10, td:10, total:20, tpe:15, credits:2, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+      { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG212", module:"Anglais des affaires", cm:20, td:10, total:30, tpe:20, credits:3, debut:"18/04/2026", fin:"18/05/2026", mois:"MOIS 3" },
+      { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG213", module:"Jeu d'entreprise", cm:15, td:15, total:30, tpe:20, credits:2, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" },
+      { type:"M", bloc:"S2-TC", ue:"UE 2.1", code:"MBAAG214", module:"Développement personnel et professionnel", cm:10, td:10, total:20, tpe:15, credits:2, debut:"20/07/2026", fin:"19/08/2026", mois:"MOIS 6" }
+    ]
+  },
+  {
+    section: "S2-TC",
+    titre: "SEMESTRE 2 - Tronc commun",
+    ue: "UE 2.2 Stage et mémoire (4 mois minimum)",
+    meta: "160h TPE • 8 crédits",
+    modules: [
+      { type:"UE", bloc:"S2-TC", ue:"UE 2.2", code:"", module:"UE 2.2 Stage et mémoire", cm:"", td:"", total:"", tpe:160, credits:8, debut:"", fin:"", mois:"A PLANIFIER" },
+      { type:"M", bloc:"S2-TC", ue:"UE 2.2", code:"MBAAG221", module:"Stage professionnel + rédaction de mémoire", cm:"", td:"", total:"", tpe:160, credits:8, debut:"", fin:"", mois:"A PLANIFIER" }
+    ]
+  },
+  {
+    section: "GE",
+    titre: "Spécialisation 1 : Gestion des entreprises",
+    ue: "UE 2.3 Outils de Gestion de l'entreprise",
+    meta: "140h • 12 crédits",
+    modules: [
+      { type:"UE", bloc:"GE", ue:"UE 2.3", code:"", module:"UE 2.3 Outils de Gestion de l'entreprise (GE)", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG231", module:"Organisation et stratégie", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+      { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG232", module:"Administration et Gestion des ressources humaines", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+      { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG233", module:"Gestion financière", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+      { type:"M", bloc:"GE", ue:"UE 2.3", code:"MBAAG234", module:"Systèmes d'information", cm:25, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" }
+    ]
+  },
+  {
+    section: "AP",
+    titre: "Spécialisation 2 : Administration publique",
+    ue: "UE 2.4 Droit et Gestion publique",
+    meta: "140h • 12 crédits",
+    modules: [
+      { type:"UE", bloc:"AP", ue:"UE 2.4", code:"", module:"UE 2.4 Droit et Gestion publique (AP)", cm:"", td:"", total:"", tpe:"", credits:"", debut:"", fin:"", mois:"" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG241", module:"Droit de la fonction publique et de la décentralisation", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG242", module:"Acteurs et systèmes de protection sociale", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG243", module:"Science administrative et droit administratif", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/08/2026", fin:"19/09/2026", mois:"MOIS 7" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG244", module:"Finances de l'État et Finances locales", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG245", module:"Gestion des ressources humaines dans l'administration publique", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" },
+      { type:"M", bloc:"AP", ue:"UE 2.4", code:"MBAAG246", module:"Modernisation et digitalisation du service public", cm:10, td:10, total:35, tpe:25, credits:3, debut:"20/09/2026", fin:"20/10/2026", mois:"MOIS 8" }
+    ]
+  }
+];
+
+// Aplatir AGAUF pour compatibilité avec le moteur de rendu
+const AGAUF_FLAT = [];
+AGAUF.forEach(group => {
+  group.modules.forEach(m => {
+    AGAUF_FLAT.push({...m, meta: group.meta});
+  });
+});
+
+// ============================================================================
+// SECTION 3 : CONFIGURATION DES MBA
+// ============================================================================
+const MBA_CONFIG = {
+  GP: {
+    data: GP,
+    name: "MBA GP CESAG",
+    email: "entmbagpdistance2526@cesag.edu.sn",
+    tbodyId: "tbodyGP",
+    searchId: "searchGP",
+    moisId: "moisGP",
+    blocId: "blocGP",
+    countId: "countGP"
+  },
+  AG: {
+    data: AG,
+    name: "MBA AG CESAG",
+    email: "entmbaagdistance2526@cesag.edu.sn",
+    tbodyId: "tbodyAG",
+    searchId: "searchAG",
+    moisId: "moisAG",
+    blocId: "blocAG",
+    countId: "countAG"
+  },
+  MSCH: {
+    data: MSCH,
+    name: "MBA MSCH",
+    email: "entmbamsch2526@cesag.edu.sn",
+    tbodyId: "tbodyMSCH",
+    searchId: "searchMSCH",
+    moisId: "moisMSCH",
+    blocId: "blocMSCH",
+    countId: "countMSCH"
+  },
+  GPAUF: {
+    data: GPAUF,
+    name: "MBA GP AUF",
+    email: "entmbagpauf2526@cesag.edu.sn",
+    tbodyId: "tbodyGPAUF",
+    searchId: "searchGPAUF",
+    moisId: "moisGPAUF",
+    blocId: "blocGPAUF",
+    countId: "countGPAUF",
+    isAUF: true
+  },
+  AGAUF: {
+    data: AGAUF_FLAT,
+    name: "MBA AG AUF",
+    email: "entmbaagauf2526@cesag.edu.sn",
+    tbodyId: "tbodyAGAUF",
+    searchId: "searchAGAUF",
+    moisId: "moisAGAUF",
+    blocId: "blocAGAUF",
+    countId: "countAGAUF",
+    isAUF: true
+  }
+};
+
+// ============================================================================
+// SECTION 4 : SYSTÈME DE SUIVI LOCAL
+// ============================================================================
+const TRACK_KEY = "CESAG_HUB_TRACKING_V2_AUF";
+function loadTracking(){
+  try { return JSON.parse(localStorage.getItem(TRACK_KEY) || "{}"); }
+  catch(e){ return {}; }
+}
+function saveTracking(obj){
+  localStorage.setItem(TRACK_KEY, JSON.stringify(obj));
+}
+let tracking = loadTracking();
+
+function getTrack(code){
+  if(!code) return {status:"RED", note:"", teacher:"", courseLink:"", roomLink:""};
+  return tracking[code] || {status:"RED", note:"", teacher:"", courseLink:"", roomLink:""};
+}
+function setTrack(code, payload){
+  tracking[code] = { ...getTrack(code), ...payload };
+  saveTracking(tracking);
+}
+
+// ============================================================================
+// SECTION 5 : UTILITAIRES
+// ============================================================================
+function parseFRDate(ddmmyyyy){
+  if(!ddmmyyyy || typeof ddmmyyyy !== "string" || !ddmmyyyy.includes("/")) return null;
+  const [dd, mm, yyyy] = ddmmyyyy.split("/").map(x=>parseInt(x,10));
+  if(!dd || !mm || !yyyy) return null;
+  return new Date(yyyy, mm-1, dd);
+}
+function dateAnomaly(debut, fin){
+  const d1 = parseFRDate(debut);
+  const d2 = parseFRDate(fin);
+  if(!d1 || !d2) return false;
+  return d2 < d1;
+}
+function statusBadge(status){
+  if(status==="GREEN") return `<span class="status s-green">🟢 Terminé</span>`;
+  if(status==="YELLOW") return `<span class="status s-yellow">🟡 En cours</span>`;
+  return `<span class="status s-red">🔴 Non démarré</span>`;
+}
+function toast(msg, ok=true){
+  const t = document.getElementById("toast");
+  t.style.display = "block";
+  t.style.borderColor = ok ? "#bbf7d0" : "#fecaca";
+  t.style.background = ok ? "#f0fdf4" : "#fef2f2";
+  t.style.color = ok ? "#166534" : "#991b1b";
+  t.textContent = msg;
+  setTimeout(()=>{ t.style.display="none"; }, 2200);
+}
+async function copyToClipboard(text){
+  try{
+    await navigator.clipboard.writeText(text);
+    toast("✅ Copié dans le presse-papiers.");
+  }catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    toast("✅ Copié (mode compatibilité).");
+  }
+}
+
+// ============================================================================
+// SECTION 6 : MOTEUR DE RENDU
+// ============================================================================
+function renderTable(data, tbodyId, searchTerm, moisFilter, blocFilter, isAUF = false){
+  const tbody = document.getElementById(tbodyId);
+  tbody.innerHTML = "";
+  const q = (searchTerm || "").trim().toLowerCase();
+
+  let shown = 0;
+  let total = 0;
+
+  data.forEach(row=>{
+    if(row.type==="M") total++;
+  });
+
+  let ueBuffer = null;
+
+  const flushUE = () => {
+    if(ueBuffer){
+      tbody.insertAdjacentHTML("beforeend", ueBuffer);
+      ueBuffer = null;
+    }
+  };
+
+  data.forEach(row=>{
+    if(row.type==="UE"){
+      ueBuffer = `
+        <tr class="ueRow">
+          <td colspan="12">📌 ${row.ue}${row.meta ? ` <span class="warnTag"> ${row.meta} </span>` : ""}</td>
+        </tr>
+      `;
+      return;
+    }
+
+    const textBlob = `${row.bloc} ${row.ue} ${row.code||""} ${row.module||""}`.toLowerCase();
+    const mois = row.mois || "A PLANIFIER";
+
+    if(blocFilter && blocFilter !== "ALL" && row.bloc !== blocFilter) return;
+    if(moisFilter && moisFilter !== "ALL" && mois !== moisFilter) return;
+    if(q && !textBlob.includes(q)) return;
+
+    flushUE();
+    shown++;
+
+    const anomaly = dateAnomaly(row.debut, row.fin);
+    const track = getTrack(row.code);
+    const noteSafe = (track.note || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const teacherSafe = (track.teacher || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const courseLinkSafe = (track.courseLink || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const roomLinkSafe = (track.roomLink || "").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+    const statusSelect = `
+      <select data-code="${row.code}" class="trackStatus">
+        <option value="RED" ${track.status==="RED"?"selected":""}>🔴 Non démarré</option>
+        <option value="YELLOW" ${track.status==="YELLOW"?"selected":""}>🟡 En cours</option>
+        <option value="GREEN" ${track.status==="GREEN"?"selected":""}>🟢 Terminé</option>
+      </select>
+    `;
+
+    const teacherInput = `
+      <input type="text" data-code="${row.code}" class="trackTeacher" placeholder="Enseignant (optionnel)" value="${teacherSafe}">
+    `;
+
+    const noteInput = `
+      <input type="text" data-code="${row.code}" class="trackNote" placeholder="Note rapide (ex: syllabus reçu, dates validées...)" value="${noteSafe}">
+    `;
+
+    const courseLinkInput = `
+      <input type="url" data-code="${row.code}" class="trackCourseLink" placeholder="Lien du cours (Moodle, Drive...)" value="${courseLinkSafe}">
+    `;
+
+    const roomLinkInput = `
+      <input type="url" data-code="${row.code}" class="trackRoomLink" placeholder="Lien salle virtuelle (Zoom/Meet/Teams)" value="${roomLinkSafe}">
+    `;
+
+    const codeClass = isAUF ? 'code auf' : 'code';
+
+    tbody.insertAdjacentHTML("beforeend", `
+      <tr>
+        <td>${row.bloc}</td>
+        <td>
+          <div style="white-space:normal;">
+            <div style="font-weight:900;">${row.module}</div>
+            <div class="mini">${row.ue}</div>
+          </div>
+        </td>
+        <td>${row.code ? `<span class="${codeClass}">${row.code}</span>` : ""}</td>
+        <td>${row.cm ?? ""}</td>
+        <td>${row.td ?? ""}</td>
+        <td>${row.total ?? ""}</td>
+        <td>${row.tpe ?? ""}</td>
+        <td>${row.credits ?? ""}</td>
+        <td>${row.debut || ""}${anomaly ? `<span class="warnTag">⚠️ dates</span>` : ""}</td>
+        <td>${row.fin || ""}</td>
+        <td>${mois}</td>
+        <td class="note">
+          <div class="controls">
+            ${statusSelect}
+            ${teacherInput}
+            ${courseLinkInput}
+            ${roomLinkInput}
+            ${noteInput}
+            <span style="margin-left:auto;">${statusBadge(track.status)}</span>
+          </div>
+        </td>
+      </tr>
+    `);
+  });
+
+  tbody.querySelectorAll(".trackStatus").forEach(sel=>{
+    sel.addEventListener("change", (e)=>{
+      const code = e.target.getAttribute("data-code");
+      setTrack(code, {status: e.target.value});
+      renderAll();
+      toast("✅ Statut mis à jour.");
+    });
+  });
+  tbody.querySelectorAll(".trackTeacher").forEach(inp=>{
+    inp.addEventListener("input", (e)=>{
+      const code = e.target.getAttribute("data-code");
+      setTrack(code, {teacher: e.target.value});
+    });
+    inp.addEventListener("blur", ()=> toast("✅ Enseignant enregistré."));
+  });
+  tbody.querySelectorAll(".trackNote").forEach(inp=>{
+    inp.addEventListener("input", (e)=>{
+      const code = e.target.getAttribute("data-code");
+      setTrack(code, {note: e.target.value});
+    });
+    inp.addEventListener("blur", ()=> toast("✅ Note enregistrée."));
+  });
+
+  tbody.querySelectorAll(".trackCourseLink").forEach(inp=>{
+    inp.addEventListener("input", (e)=>{
+      const code = e.target.getAttribute("data-code");
+      setTrack(code, {courseLink: e.target.value.trim()});
+    });
+    inp.addEventListener("blur", ()=> toast("✅ Lien du cours enregistré."));
+  });
+
+  tbody.querySelectorAll(".trackRoomLink").forEach(inp=>{
+    inp.addEventListener("input", (e)=>{
+      const code = e.target.getAttribute("data-code");
+      setTrack(code, {roomLink: e.target.value.trim()});
+    });
+    inp.addEventListener("blur", ()=> toast("✅ Lien de salle virtuelle enregistré."));
+  });
+
+  return {shown, total};
+}
+
+function renderAll(){
+  Object.keys(MBA_CONFIG).forEach(mbaKey => {
+    const config = MBA_CONFIG[mbaKey];
+    const search = document.getElementById(config.searchId).value;
+    const mois = document.getElementById(config.moisId).value;
+    const bloc = document.getElementById(config.blocId).value;
+    const stats = renderTable(config.data, config.tbodyId, search, mois, bloc, config.isAUF);
+    document.getElementById(config.countId).textContent = `${stats.shown} / ${stats.total} modules affichés (${config.name})`;
+  });
+}
+
+// ============================================================================
+// SECTION 7 : GESTION DES ONGLETS
+// ============================================================================
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const tab = btn.getAttribute("data-tab");
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+    document.getElementById(`panel-${tab}`).classList.add("active");
+    localStorage.setItem("CESAG_HUB_LASTTAB_V2", tab);
+  });
+});
+window.addEventListener("DOMContentLoaded", ()=>{
+  const last = localStorage.getItem("CESAG_HUB_LASTTAB_V2");
+  if(last){
+    const btn = document.querySelector(`.tab[data-tab="${last}"]`);
+    if(btn) btn.click();
+  }
+});
+
+// ============================================================================
+// SECTION 8 : ACTIONS BOUTONS
+// ============================================================================
+// Copie d'emails CESAG
+document.getElementById("copyAG").addEventListener("click", ()=> {
+  copyToClipboard(MBA_CONFIG.AG.email);
+});
+document.getElementById("copyGP").addEventListener("click", ()=> {
+  copyToClipboard(MBA_CONFIG.GP.email);
+});
+document.getElementById("copyMSCH").addEventListener("click", ()=> {
+  copyToClipboard(MBA_CONFIG.MSCH.email);
+});
+
+// Copie d'emails AUF
+document.getElementById("copyAGAUF").addEventListener("click", ()=> {
+  copyToClipboard(MBA_CONFIG.AGAUF.email);
+});
+document.getElementById("copyGPAUF").addEventListener("click", ()=> {
+  copyToClipboard(MBA_CONFIG.GPAUF.email);
+});
+
+// Export JSON
+document.getElementById("exportJSON").addEventListener("click", ()=>{
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    tracking: loadTracking()
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "CESAG_HUB_SUIVI_AUF.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  toast("✅ Export JSON généré.");
+});
+
+// Réinitialisation
+document.getElementById("resetTracking").addEventListener("click", ()=>{
+  localStorage.removeItem(TRACK_KEY);
+  tracking = {};
+  renderAll();
+  toast("✅ Suivi local réinitialisé.");
+});
+
+// ============================================================================
+// SECTION 9 : FILTRES & INITIALISATION
+// ============================================================================
+Object.keys(MBA_CONFIG).forEach(mbaKey => {
+  const config = MBA_CONFIG[mbaKey];
+  [config.searchId, config.moisId, config.blocId].forEach(id=>{
+    const element = document.getElementById(id);
+    if(element) {
+      element.addEventListener(id.includes("search") ? "input" : "change", renderAll);
+    }
+  });
+});
+
+// INITIALISATION
+renderAll();
+
+const DATA={
+ GP:[{bloc:'S1',module:'Enjeux et défis du développement',code:'MBAGP1111'},{bloc:'S1',module:'Études de faisabilité de projet',code:'MBAGP1121'}],
+ AG:[{bloc:'S1-TC',module:'Droit des affaires',code:'MBAAG111'},{bloc:'S1-TC',module:'Comptabilité',code:'MBAAG131'}],
+ MSCH:[{bloc:'S1',module:'Comptabilité générale',code:'MBAGRH111'},{bloc:'S2',module:'Stage et Mémoire',code:'MBAGRH251'}]
+};
+const KEY='CESAG_HUB_TRACKING_V2_AUF';
+let tracking=JSON.parse(localStorage.getItem(KEY)||'{}');
+function toast(msg){const t=document.getElementById('toast');t.style.display='block';t.textContent=msg;setTimeout(()=>t.style.display='none',1800)}
+function render(){
+  [['GP','tbodyGP'],['AG','tbodyAG'],['MSCH','tbodyMSCH']].forEach(([k,id])=>{
+    const el=document.getElementById(id); el.innerHTML='';
+    DATA[k].forEach(r=>{const st=(tracking[r.code]||'RED'); const lbl=st==='GREEN'?'🟢 Terminé':st==='YELLOW'?'🟡 En cours':'🔴 Non démarré';
+      el.insertAdjacentHTML('beforeend',`<tr><td>${r.bloc}</td><td>${r.module}</td><td><span class="code">${r.code}</span></td><td><select data-code="${r.code}" class="trackStatus"><option value="RED" ${st==='RED'?'selected':''}>🔴 Non démarré</option><option value="YELLOW" ${st==='YELLOW'?'selected':''}>🟡 En cours</option><option value="GREEN" ${st==='GREEN'?'selected':''}>🟢 Terminé</option></select> <span class="mini">${lbl}</span></td></tr>`)
+    })
+  });
+  document.querySelectorAll('.trackStatus').forEach(s=>s.addEventListener('change',e=>{tracking[e.target.dataset.code]=e.target.value;localStorage.setItem(KEY,JSON.stringify(tracking));render();}));
+}
+
+function copyToClipboard(text){navigator.clipboard.writeText(text).then(()=>toast('✅ Copié.'));}
+document.getElementById('copyAG').addEventListener('click',()=>copyToClipboard('entmbaagdistance2526@cesag.edu.sn'));
+document.getElementById('copyGP').addEventListener('click',()=>copyToClipboard('entmbagpdistance2526@cesag.edu.sn'));
+document.getElementById('copyMSCH').addEventListener('click',()=>copyToClipboard('entmbamsch2526@cesag.edu.sn'));
+document.getElementById('exportJSON').addEventListener('click',()=>{const b=new Blob([JSON.stringify({tracking},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='CESAG_HUB_SUIVI_AUF.json';a.click();toast('✅ Export JSON généré.');});
+document.getElementById('resetTracking').addEventListener('click',()=>{localStorage.removeItem(KEY);tracking={};render();toast('✅ Suivi réinitialisé.');});
+
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+btn.dataset.tab).classList.add('active');}));
+render();
+
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  const btn=document.getElementById('dark-toggle');
+  btn.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
+  localStorage.setItem('hub-theme',document.body.classList.contains('dark')?'dark':'light');
+}
+(function(){
+  if(localStorage.getItem('hub-theme')==='dark'){
+    document.body.classList.add('dark');
+    const btn=document.getElementById('dark-toggle');
+    if(btn) btn.textContent='☀️';
+  }
+})();
+</script>
+
+<!-- BARRE NAVIGATION PAGES -->
+<div id="page-nav">
+  <button class="nav-prev" onclick="history.back()" title="Page précédente">&#9664; Précédent</button>
+  <a class="nav-home" href="index.html" title="Accueil Cockpit">🏠 Accueil</a>
+  <button class="nav-next" onclick="history.forward()" title="Page suivante">Suivant &#9654;</button>
+  <button class="nav-dark" onclick="toggleDark()" title="Basculer thème sombre" id="page-dark-btn">🌙</button>
+</div>
 
 </body>
 </html>
